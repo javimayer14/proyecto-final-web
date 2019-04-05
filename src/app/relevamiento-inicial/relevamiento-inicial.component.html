@@ -1,0 +1,23 @@
+<div class ="container">
+<form>
+  <div *ngFor ="let x of trabajadores" class="form-row">
+    <div class="form-group col-md-4">
+      <label for="exampleFormControlSelect1">Tipo de trabajador</label>
+      <select class="form-control" id="exampleFormControlSelect1" placeholder="Tipo de trabajador">
+        <option>1</option>
+        <option>2</option>
+    
+      </select>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputPassword4">Total trabajadores</label>
+      <input type="text" class="form-control" id="inputPassword" placeholder="Total trabajadores">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputPassword4">Trabajadores afiliados a la UOM</label>
+      <input type="text" class="form-control" id="inputPassword" placeholder="Trabajadores afiliados a la UOM">
+    </div>
+  </div>
+  <button (click)="agregarTrabajador()" type="button" class="btn btn-primary">+</button>
+</form>
+</div>
