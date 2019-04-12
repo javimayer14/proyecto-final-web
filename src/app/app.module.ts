@@ -8,6 +8,8 @@ import { InicioComponent } from './inicio/inicio.component';
 import { GeneracionUsuarioComponent } from './generacion-usuario/generacion-usuario.component';
 import { RelevamientoInicialComponent } from './relevamiento-inicial/relevamiento-inicial.component';
 
+import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +20,8 @@ import { RelevamientoInicialComponent } from './relevamiento-inicial/relevamient
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    DatePickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

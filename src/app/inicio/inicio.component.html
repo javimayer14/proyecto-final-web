@@ -1,8 +1,8 @@
 <div class = "container">
-
+  <form  #form="ngForm" (ngSubmit)="saveDataUsuario(form)" novalidate>
   <div class="form-group col-md-12">
     <label for="inputState">Buscar por:</label>
-    <select id="inputState" class="form-control">
+    <select id="inputState" class="form-control" name ="tipoBusqueda" [(ngModel)]="buscadorForm.tipoBusqueda"  >
       <option selected>Usuario</option>
       <option selected>Empresa</option>
       <option selected>Echo currido</option>
@@ -12,24 +12,24 @@
 <div >
   <div class="form-group col-md-6">
     <label for="inputState">Fecha desde:</label>
-    <select id="inputState" class="form-control">
-      <option selected>Choose...</option>
-      <option>...</option>
-    </select>
+    <ejs-datepicker id='datepicker' placeholder='Select a date' [value]='value' [min]='minDate' [max]='maxDate' name ="fechaDesde" [(ngModel)]="buscadorForm.fechaDesde"></ejs-datepicker>
   </div>
   <div class="form-group col-md-6">
     <label for="inputState">Fecha hasta</label>
-    <select id="inputState" class="form-control">
-      <option selected>Choose...</option>
-      <option>...</option>
-    </select>
+    <ejs-datepicker id='datepicker' placeholder='Select a date' [value]='value' [min]='minDate' [max]='maxDate' name ="fechaHasta" [(ngModel)]="buscadorForm.fechaHasta"></ejs-datepicker>
   </div>
 </div>
 <div class="form-group col-md-12">
   <label for="inputAddress">Buscar</label>
-  <input type="text" class="form-control" id="inputAddress" placeholder="Buscar">
+  <input type="text" class="form-control" id="inputAddress" placeholder="Buscar"  name ="descripcionBusqueda" [(ngModel)]="buscadorForm.descripcionBusqueda" >
 </div>
 <div class ="form-group col-md-12 center">
-  <button type="button" class="btn btn-primary btn-lg">Large button</button>
+  <button  type="submit" class="btn btn-primary btn-lg">Large button</button>
 </div>
+</form>
+
+<ejs-datepicker id='datepicker' placeholder='Select a date' [value]='value' [min]='minDate' [max]='maxDate'></ejs-datepicker>
+
+<link href="https://cdn.syncfusion.com/ej2/material.css" rel="stylesheet" />
+
 </div>
