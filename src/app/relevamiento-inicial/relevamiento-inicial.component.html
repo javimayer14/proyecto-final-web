@@ -1,9 +1,9 @@
 <div class ="container">
-<form>
-  <div *ngFor ="let x of trabajadores" class="form-row">
+<form  #form="ngForm" (ngSubmit)="saveDataUsuario(form)" novalidate>
+  <div *ngFor ="let x of trabajadores; index as i" class="form-row">
     <div class="form-group col-md-4">
       <label for="exampleFormControlSelect1">Tipo de trabajador</label>
-      <select class="form-control" id="exampleFormControlSelect1" placeholder="Tipo de trabajador">
+      <select class="form-control" id="exampleFormControlSelect1" placeholder="Tipo de trabajador"  name ="tipo {{i}}" [(ngModel)]="relevamientoForm.tipo">
         <option>1</option>
         <option>2</option>
     
@@ -11,13 +11,14 @@
     </div>
     <div class="form-group col-md-4">
       <label for="inputPassword4">Total trabajadores</label>
-      <input type="text" class="form-control" id="inputPassword" placeholder="Total trabajadores">
+      <input type="text" class="form-control" id="inputPassword" placeholder="Total trabajadores" name ="totalTrabajadores {{i}}" [(ngModel)]="relevamientoForm.totalTrabajadores">
     </div>
     <div class="form-group col-md-4">
       <label for="inputPassword4">Trabajadores afiliados a la UOM</label>
-      <input type="text" class="form-control" id="inputPassword" placeholder="Trabajadores afiliados a la UOM">
+      <input type="text" class="form-control" id="inputPassword" placeholder="Trabajadores afiliados a la UOM" name ="totalUom {{i}}" [(ngModel)]="relevamientoForm.totalUom">
     </div>
   </div>
   <button (click)="agregarTrabajador()" type="button" class="btn btn-primary">+</button>
+  <button  type="submit" class="btn btn-primary">Confirmar</button>
 </form>
 </div>

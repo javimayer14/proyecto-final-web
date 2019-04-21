@@ -72,14 +72,14 @@
         <label for="inputAddress">Actividad principal</label>
         <input type="text" class="form-control" id="inputAddress" placeholder="Actividad principal" name ="actividad" [(ngModel)]="generacionUsuarioForm.actividad">
       </div>
-      <div class="form-check">
-          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+      <div class="form-check" >
+          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked  name ="check" [(ngModel)]="generacionUsuarioForm.check">
           <label class="form-check-label" for="exampleRadios1">
                 Default radio
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2"  >
+          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2"  name ="check" [(ngModel)]="generacionUsuarioForm.check">
           <label class="form-check-label" for="exampleRadios2">
                 Second default radio
           </label>

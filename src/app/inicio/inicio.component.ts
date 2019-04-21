@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicio',
@@ -9,7 +10,7 @@ export class InicioComponent implements OnInit {
   public minDate: Date = new Date ("01/01/1975");
   public maxDate: Date = new Date ("01/01/2019");
   public value: Date = new Date ("05/16/2017");
-  constructor() {
+  constructor(public router: Router) {
   
   }
 
@@ -29,6 +30,7 @@ export class InicioComponent implements OnInit {
   public saveDataUsuario(form){
     console.log(form.value);
     console.log("hola");
+    
   }
   
   ngOnInit() {

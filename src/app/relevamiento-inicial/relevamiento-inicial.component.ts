@@ -13,6 +13,22 @@ export class RelevamientoInicialComponent implements OnInit {
    public agregarTrabajador(){
      this.trabajadores.push(1);
    }
+
+   relevamientoForm  = {
+      lista: {
+        tipo : "",
+        totalTrabajadores : "",
+        totalUom : "",
+      },
+    tipo : "",
+    totalTrabajadores : "",
+    totalUom : "",
+
+  }
+  saveDataUsuario(form){
+    console.log(form.value);
+  }
+
   ngOnInit() {
   }
 
