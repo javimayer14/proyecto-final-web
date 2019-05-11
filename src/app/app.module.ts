@@ -10,13 +10,15 @@ import { GeneracionUsuarioComponent } from './generacion-usuario/generacion-usua
 import { RelevamientoInicialComponent } from './relevamiento-inicial/relevamiento-inicial.component';
 
 import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
+import { BuscadorComponent } from './buscador/buscador.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InicioComponent,
     GeneracionUsuarioComponent,
-    RelevamientoInicialComponent
+    RelevamientoInicialComponent,
+    BuscadorComponent
   ],
   imports: [
     BrowserModule,

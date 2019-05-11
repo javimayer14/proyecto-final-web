@@ -1,5 +1,13 @@
 <div class = "container">
   <form  #form="ngForm" (ngSubmit)="saveDataUsuario(form)" novalidate>
+      <div class="form-group col-md-12">
+          <label for="inputState">Buscar por:</label>
+          <select id="inputState" class="form-control" name ="tipoBusquedaPrincipal" [(ngModel)]="buscadorForm.tipoBusquedaPrincipal"  >
+            <option selected>Conflicto laboral</option>
+            <option selected>Variacion laboral</option>
+            <option selected>Cambio laboral</option>
+          </select>
+        </div>
   <div class="form-group col-md-12">
     <label for="inputState">Buscar por:</label>
     <select id="inputState" class="form-control" name ="tipoBusqueda" [(ngModel)]="buscadorForm.tipoBusqueda"  >
