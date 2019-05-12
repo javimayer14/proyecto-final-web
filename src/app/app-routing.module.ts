@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { InicioComponent } from '../app/inicio/inicio.component';
 import { GeneracionUsuarioComponent } from '../app/generacion-usuario/generacion-usuario.component';
 import { RelevamientoInicialComponent } from './relevamiento-inicial/relevamiento-inicial.component';
-
+import { GenerarExelComponent } from './generar-exel/generar-exel.component';
 
 const routes: Routes = [
   {
@@ -17,6 +17,10 @@ const routes: Routes = [
   {
     path: 'relevamientoInicial',
     component: RelevamientoInicialComponent
+  },
+  {
+    path: 'exelPrueba',
+    component: GenerarExelComponent
   }
 ];
 

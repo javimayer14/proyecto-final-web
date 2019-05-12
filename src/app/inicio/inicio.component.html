@@ -1,40 +1,259 @@
-<div class = "container">
-  <form  #form="ngForm" (ngSubmit)="saveDataUsuario(form)" novalidate>
-      <div class="form-group col-md-12">
+<div class="container">
+
+
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+        aria-selected="true">Variaciones Laborales</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+        aria-selected="false">Conflictos Laborales</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+        aria-selected="false">Cambio en las condiciones laborales</a>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+      <br>
+    <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+      <form #form="ngForm" (ngSubmit)="buscarVariacion(form)" novalidate>
+        <div class="form-group col-md-12">
           <label for="inputState">Buscar por:</label>
-          <select id="inputState" class="form-control" name ="tipoBusquedaPrincipal" [(ngModel)]="buscadorForm.tipoBusquedaPrincipal"  >
-            <option selected>Conflicto laboral</option>
-            <option selected>Variacion laboral</option>
-            <option selected>Cambio laboral</option>
+          <select id="inputState" class="form-control" name="tipoBusqueda" [(ngModel)]="buscadorForm.tipoBusqueda">
+            <option selected>Usuario</option>
+            <option selected>Empresa</option>
+            <option selected>Echo currido</option>
           </select>
         </div>
-  <div class="form-group col-md-12">
-    <label for="inputState">Buscar por:</label>
-    <select id="inputState" class="form-control" name ="tipoBusqueda" [(ngModel)]="buscadorForm.tipoBusqueda"  >
-      <option selected>Usuario</option>
-      <option selected>Empresa</option>
-      <option selected>Echo currido</option>
-    </select>
+        <div>
+          <div class="form-group col-md-6">
+            <label for="inputState">Fecha desde:</label>
+            <ejs-datepicker id='datepicker' placeholder='Select a date' [value]='value' [min]='minDate' [max]='maxDate'
+              name="fechaDesde" [(ngModel)]="buscadorForm.fechaDesde"></ejs-datepicker>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputState">Fecha hasta</label>
+            <ejs-datepicker id='datepicker' placeholder='Select a date' [value]='value' [min]='minDate' [max]='maxDate'
+              name="fechaHasta" [(ngModel)]="buscadorForm.fechaHasta"></ejs-datepicker>
+          </div>
+        </div>
+        <div class="form-group col-md-12">
+          <label for="inputAddress">Buscar</label>
+          <input type="text" class="form-control" id="inputAddress" placeholder="Buscar" name="descripcionBusqueda"
+            [(ngModel)]="buscadorForm.descripcionBusqueda">
+        </div>
+        <div class="form-group col-md-12 center">
+          <button type="submit" class="btn btn-primary btn-lg">Buscar</button>
+        </div>
+      </form>
+    
+      <link href="https://cdn.syncfusion.com/ej2/material.css" rel="stylesheet" />
+    
+    
+      <hr>
+      <h1>Resultados</h1>
+      <hr>
+    
+    
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table_responsive">
+            <table class="table">
+              <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">No se que va</th>
+                    <th scope="col">Nombre empresa</th>
+                    <th scope="col">Fecha de carga</th>
+                    <th scope="col">Motivo principal</th>
+                    <th scope="col">sub motivo</th>
+                    <th scope="col">Descripcion</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let d of datosBusqueda">
+                    <th scope="row">1</th>
+                    <td>{{d[0]}}</td>
+                    <td>{{d[1]}}</td>
+                    <td>{{d[2]}}</td>
+                    <td>{{d[3]}}</td>
+                    <td>{{d[4]}}</td>
+                    <td>{{d[5]}}</td>
+                    <td>{{d[6]}}</td>
+                    <td>{{d[7]}}</td>
+    
+    
+                  </tr>
+                </tbody>
+              </table>
+    
+    
+            </table>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+      <br>
+      <form #form="ngForm" (ngSubmit)="buscarConflicto(form)" novalidate>
+        <div class="form-group col-md-12">
+          <label for="inputState">Buscar por:</label>
+          <select id="inputState" class="form-control" name="tipoBusqueda" [(ngModel)]="buscadorForm.tipoBusqueda">
+            <option selected>Usuario</option>
+            <option selected>Empresa</option>
+            <option selected>Echo currido</option>
+          </select>
+        </div>
+        <div>
+          <div class="form-group col-md-6">
+            <label for="inputState">Fecha desde:</label>
+            <ejs-datepicker id='datepicker' placeholder='Select a date' [value]='value' [min]='minDate' [max]='maxDate'
+              name="fechaDesde" [(ngModel)]="buscadorForm.fechaDesde"></ejs-datepicker>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputState">Fecha hasta</label>
+            <ejs-datepicker id='datepicker' placeholder='Select a date' [value]='value' [min]='minDate' [max]='maxDate'
+              name="fechaHasta" [(ngModel)]="buscadorForm.fechaHasta"></ejs-datepicker>
+          </div>
+        </div>
+        <div class="form-group col-md-12">
+          <label for="inputAddress">Buscar</label>
+          <input type="text" class="form-control" id="inputAddress" placeholder="Buscar" name="descripcionBusqueda"
+            [(ngModel)]="buscadorForm.descripcionBusqueda">
+        </div>
+        <div class="form-group col-md-12 center">
+          <button type="submit" class="btn btn-primary btn-lg">Buscar</button>
+          <button type="submit" (click)="generar()" class="btn btn-primary btn-lg">Generar exel</button>
+        </div>
+      </form>
+    
+      <link href="https://cdn.syncfusion.com/ej2/material.css" rel="stylesheet" />
+    
+      <hr>
+      <h1>Resultados</h1>
+      <hr>
+    
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table_responsive">
+            <table class="table">
+              <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">No se que va</th>
+                    <th scope="col">Nombre empresa</th>
+                    <th scope="col">Fecha de carga</th>
+                    <th scope="col">Motivo principal</th>
+                    <th scope="col">sub motivo</th>
+                    <th scope="col">Descripcion</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let d of datosBusqueda">
+                    <th scope="row">1</th>
+                    <td>{{d[0]}}</td>
+                    <td>{{d[1]}}</td>
+                    <td>{{d[2]}}</td>
+                    <td>{{d[3]}}</td>
+                    <td>{{d[4]}}</td>
+                    <td>{{d[5]}}</td>
+                    <td>{{d[6]}}</td>
+                    <td>{{d[7]}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </table>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+        <br>
+      <form #form="ngForm" (ngSubmit)="buscarCambio(form)" novalidate>
+        <div class="form-group col-md-12">
+          <label for="inputState">Buscar por:</label>
+          <select id="inputState" class="form-control" name="tipoBusqueda" [(ngModel)]="buscadorForm.tipoBusqueda">
+            <option selected>Usuario</option>
+            <option selected>Empresa</option>
+            <option selected>Echo currido</option>
+          </select>
+        </div>
+        <div>
+          <div class="form-group col-md-6">
+            <label for="inputState">Fecha desde:</label>
+            <ejs-datepicker id='datepicker' placeholder='Select a date' [value]='value' [min]='minDate' [max]='maxDate'
+              name="fechaDesde" [(ngModel)]="buscadorForm.fechaDesde"></ejs-datepicker>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputState">Fecha hasta</label>
+            <ejs-datepicker id='datepicker' placeholder='Select a date' [value]='value' [min]='minDate' [max]='maxDate'
+              name="fechaHasta" [(ngModel)]="buscadorForm.fechaHasta"></ejs-datepicker>
+          </div>
+        </div>
+        <div class="form-group col-md-12">
+          <label for="inputAddress">Buscar</label>
+          <input type="text" class="form-control" id="inputAddress" placeholder="Buscar" name="descripcionBusqueda"
+            [(ngModel)]="buscadorForm.descripcionBusqueda">
+        </div>
+        <div class="form-group col-md-12 center">
+          <button type="submit" class="btn btn-primary btn-lg">Buscar</button>
+        </div>
+      </form>
+    
+      <link href="https://cdn.syncfusion.com/ej2/material.css" rel="stylesheet" />
+    
+      <hr>
+      <h1>Resultados</h1>
+      <hr>
+    
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table_responsive">
+            <table class="table">
+              <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">No se que va</th>
+                    <th scope="col">Nombre empresa</th>
+                    <th scope="col">Fecha de carga</th>
+                    <th scope="col">Motivo principal</th>
+                    <th scope="col">sub motivo</th>
+                    <th scope="col">Descripcion</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let d of datosBusqueda">
+                    <th scope="row">1</th>
+                    <td>{{d[0]}}</td>
+                    <td>{{d[1]}}</td>
+                    <td>{{d[2]}}</td>
+                    <td>{{d[3]}}</td>
+                    <td>{{d[4]}}</td>
+                    <td>{{d[5]}}</td>
+                    <td>{{d[6]}}</td>
+                    <td>{{d[7]}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </table>
+          </div>
+        </div>
+      </div>
+    
+    </div>
   </div>
-<div >
-  <div class="form-group col-md-6">
-    <label for="inputState">Fecha desde:</label>
-    <ejs-datepicker id='datepicker' placeholder='Select a date' [value]='value' [min]='minDate' [max]='maxDate' name ="fechaDesde" [(ngModel)]="buscadorForm.fechaDesde"></ejs-datepicker>
-  </div>
-  <div class="form-group col-md-6">
-    <label for="inputState">Fecha hasta</label>
-    <ejs-datepicker id='datepicker' placeholder='Select a date' [value]='value' [min]='minDate' [max]='maxDate' name ="fechaHasta" [(ngModel)]="buscadorForm.fechaHasta"></ejs-datepicker>
-  </div>
-</div>
-<div class="form-group col-md-12">
-  <label for="inputAddress">Buscar</label>
-  <input type="text" class="form-control" id="inputAddress" placeholder="Buscar"  name ="descripcionBusqueda" [(ngModel)]="buscadorForm.descripcionBusqueda" >
-</div>
-<div class ="form-group col-md-12 center">
-  <button  type="submit" class="btn btn-primary btn-lg">Large button</button>
-</div>
-</form>
-
-<link href="https://cdn.syncfusion.com/ej2/material.css" rel="stylesheet" />
 
 </div>

@@ -11,6 +11,8 @@ import { RelevamientoInicialComponent } from './relevamiento-inicial/relevamient
 
 import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { BuscadorComponent } from './buscador/buscador.component';
+import { GenerarExelComponent } from './generar-exel/generar-exel.component';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { BuscadorComponent } from './buscador/buscador.component';
     InicioComponent,
     GeneracionUsuarioComponent,
     RelevamientoInicialComponent,
-    BuscadorComponent
+    BuscadorComponent,
+    GenerarExelComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -26,6 +30,7 @@ import { BuscadorComponent } from './buscador/buscador.component';
     FormsModule,
     HttpClientModule,
     DatePickerModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,14 @@
+<h1>LALALA</h1>
+<button (click)="exportAsXLSX()"><i class="fa fa-file-excel-o" style="font-size:48px;color:blue"></i></button>
+<table>
+ <tr>
+   <td>Eid</td>
+   <td>Ename</td>
+   <td>Esal</td>
+ </tr>
+ <tr *ngFor="let item of data">
+   <td>{{item.eid}}</td>
+   <td>{{item.ename}}</td>
+   <td>{{item.esal}}</td>
+ </tr>
+</table>
