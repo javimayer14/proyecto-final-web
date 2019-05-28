@@ -1,0 +1,24 @@
+<div class="container">
+<div class ="card border-primary text-center">
+  <div class= "card-header">{{titulo}}</div>
+  <div class="card-body">
+    
+  <form method="POST">
+    <div class = "form-goup col-sm-12">
+        <input [(ngModel)]="usuario.username" type="text" class="form-control" name="username" id="username" placeholder="Usuario" autofocus required>
+    </div>
+
+    <div class = "form-goup col-sm-12">
+        <input [(ngModel)]="usuario.password" type="text" class="form-control" name="password" id="password" placeholder="contraseña" required>
+    </div>
+
+    <div class = "form-goup col-sm-12">
+        <input (click)="logIn();" type="submit" class="btn btn-lg btn-primary btn-block" value ="Login">
+    </div>
+  </form>
+  
+  </div>
+  </div>
+
+
+</div>

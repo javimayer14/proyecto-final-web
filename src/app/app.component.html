@@ -13,6 +13,21 @@
         <a class="nav-link" routerLink="generacionUsuario" href="#">Generacion usuario</a>
       </li>
     </ul>
+    <ul class="navbar-nav navbar-right">
+      <li class="nav-item">
+        <a *ngIf="!authService.isAuthenticated()" class="btn btn-outline-primary" [routerLink]="['/login']"
+          aria-selected="false">LogIn</a>
+      </li>
+      <li *ngIf="authService.isAuthenticated()" class="dropdown">
+        <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         
+        </a>
+      
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <button (click)="logOut()" class="dropdown-item" type ="submit">Sign Out</button>
+        </div>
+      </li>
+    </ul>
   </div>
 </nav>
 

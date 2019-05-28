@@ -4,6 +4,7 @@ import { InicioComponent } from '../app/inicio/inicio.component';
 import { GeneracionUsuarioComponent } from '../app/generacion-usuario/generacion-usuario.component';
 import { RelevamientoInicialComponent } from './relevamiento-inicial/relevamiento-inicial.component';
 import { GenerarExelComponent } from './generar-exel/generar-exel.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'exelPrueba',
     component: GenerarExelComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   }
 ];
 

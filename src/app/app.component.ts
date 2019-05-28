@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { AuthService } from './services/usuarios/auth.service';
+import { Router } from '@angular/router';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +10,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ProyectoFinalPaginaWeb';
+
+
+constructor(private authService:AuthService,private router:Router){    
+
+  }
+  logOut():void{
+    this.authService.logOut();
+    swal.fire('LogOut','Has cerrado sesion con exito !',"success" );
+    this.router.navigate(['/login']);
+
+
+  }
 }
