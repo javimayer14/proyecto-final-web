@@ -15,6 +15,7 @@ import { ExcelService  } from '../services/excel.service';
 import { ManejoErroresService } from '../services/manejo-errores.service';
 import { throwError } from '@syncfusion/ej2-base';
 import swal from 'sweetalert2';
+import { AuthService } from '../services/usuarios/auth.service';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
@@ -35,10 +36,19 @@ export class InicioComponent {
   data: any = [];
   parametros: any = [];
   muestras:any= [];
-
+  private urlEndPoint: String = 'http://localhost:8080/api/variaciones/busqueda';
+  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
     
-  constructor(public router: Router, private http:HttpClient, private errores:ManejoErroresService) {
+  constructor(public router: Router, private http:HttpClient, private errores:ManejoErroresService, private authService:AuthService) {
   
+  }
+
+  private agregarAutorizacionHeader(){
+      let token = this.authService.token;
+      if(token != null){
+          return this.httpHeaders.append('Authorization','Bearer ' + token);
+      }
+      return this.httpHeaders;
   }
 
   generar(){
@@ -71,9 +81,13 @@ export class InicioComponent {
     descripcionBusqueda: "",
     tipoVariacion: ""
   }
-
+public validacionParametros(form){
+    if (form.tipoBusqueda  == null || form.fechaDesde == null || form.fechaHasta  == null){
+      swal.fire('Datos incompletos','debe completar todos los campos',"info" );
+    }
+}
  public buscarVariacion(form){
-  swal.fire('Variaciones','los datos fueron recuperados con exito',"success" );
+  this.validacionParametros(this.buscadorForm);
   //FECHA DESDE CON FORMATO CORRECTO
   var mesDesde = '' + (this.buscadorForm.fechaDesde.getMonth() + 1);
   var diaDesde = '' + this.buscadorForm.fechaDesde.getDate();
@@ -98,12 +112,13 @@ export class InicioComponent {
   
   let params = new HttpParams().set("tipoBusqueda",this.buscadorForm.tipoBusqueda).set("descripcionBusqueda", this.buscadorForm.descripcionBusqueda).set("fechaDesde", fechaFormatoCorrectoDesde.toString()).set("fechaHasta", fechaFormatoCorrectoHasta.toString()).set("tipoVariacion",this.buscadorForm.tipoVariacion); //Create new HttpParams
   console.log("ESTOS SON LOS PARAMETROS " + params);
-  return this.http.get('http://localhost:8080/api/variaciones/busqueda', {params: params}).subscribe(
+  
+  return this.http.get('http://localhost:8080/api/variaciones/busqueda', {headers: this.agregarAutorizacionHeader(),params: params}).subscribe(
 
     data  => {
     this.datosBusqueda = data;
     this.data =data;
- 
+    swal.fire('Variaciones','los datos fueron recuperados con exito',"success" );
     console.log(fechaFormatoCorrectoHasta);
     console.log("PUT Request is successful ", this.datosBusqueda);
     
@@ -115,6 +130,7 @@ export class InicioComponent {
  }
 
  public buscarConflicto(form){
+  this.validacionParametros(this.buscadorForm);
   this.muestras = [
     ['Juan','Lopez','cualquier campo','Fusap','2019-01-01','Jornada de trabajo','Reduccion de horas','se redujeron 2hs semanales'],
     ['Maria','Perez','cualquier campo','Mercel S.A','2017-08-01','salud y seguridad','Accidente de trabajo','caida por piso mojado'],
@@ -150,10 +166,12 @@ export class InicioComponent {
   
   let params = new HttpParams().set("tipoBusqueda",this.buscadorForm.tipoBusqueda).set("descripcionBusqueda", this.buscadorForm.descripcionBusqueda).set("fechaDesde", fechaFormatoCorrectoDesde.toString()).set("fechaHasta", fechaFormatoCorrectoHasta.toString()); //Create new HttpParams
   console.log("ESTOS SON LOS PARAMETROS " + params); 
-  return this.http.get('http://localhost:8080/api/conflictosLaborales/busqueda', {params: params}).subscribe(
+  return this.http.get('http://localhost:8080/api/conflictosLaborales/busqueda', {headers: this.agregarAutorizacionHeader(),params: params}).subscribe(
 
     data  => {
     this.data = data;
+    swal.fire('Variaciones','los datos fueron recuperados con exito',"success" );
+
     console.log("PUT Request is successful ", data);
     
     });
@@ -163,6 +181,7 @@ export class InicioComponent {
  }
 
  public buscarCambio(form){
+  this.validacionParametros(this.buscadorForm);
      //FECHA DESDE CON FORMATO CORRECTO
   var mesDesde = '' + (this.buscadorForm.fechaDesde.getMonth() + 1);
   var diaDesde = '' + this.buscadorForm.fechaDesde.getDate();
@@ -188,11 +207,12 @@ export class InicioComponent {
   let params = new HttpParams().set("tipoBusqueda",this.buscadorForm.tipoBusqueda).set("descripcionBusqueda", this.buscadorForm.descripcionBusqueda).set("fechaDesde", fechaFormatoCorrectoDesde.toString()).set("fechaHasta", fechaFormatoCorrectoHasta.toString()); //Create new HttpParams
   console.log("ESTOS SON LOS PARAMETROS " + params);
   console.log(form.value);
-  return this.http.get('http://localhost:8080/api/cambioCondiciones/busqueda', {params: params}).subscribe(
+  return this.http.get('http://localhost:8080/api/cambioCondiciones/busqueda', {headers: this.agregarAutorizacionHeader(),params: params}).subscribe(
 
     data  => {
     this.datosBusqueda = data;
     this.data = data;
+    swal.fire('Variaciones','los datos fueron recuperados con exito',"success" );
     console.log("PUT Request is successful ", data);
     
     });

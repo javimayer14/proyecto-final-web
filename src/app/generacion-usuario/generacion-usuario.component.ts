@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {InicioComponent} from '../inicio/inicio.component'
+import { AuthService } from '../services/usuarios/auth.service';
+import swal from 'sweetalert2';
 
 
 @Component({
@@ -10,9 +13,17 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./generacion-usuario.component.css']
 })
 export class GeneracionUsuarioComponent implements OnInit {
-  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
   data: Observable<any>;
-  constructor(private router: Router, public http: HttpClient) { }
+  constructor(private router: Router, public http: HttpClient, public authService:AuthService) { }
+
+  private agregarAutorizacionHeader(){
+    let token = this.authService.token;
+    if(token != null){
+        return this.httpHeaders.append('Authorization','Bearer ' + token);
+    }
+    return this.httpHeaders;
+}
 
   ngOnInit() {
   }
@@ -95,12 +106,12 @@ export class GeneracionUsuarioComponent implements OnInit {
     this.generacionUsuarioForm.ramaActividad4 = form.value.ramaActividad4;
     this.generacionUsuarioForm.check = form.value.check;
 
-    this.data = this.http.post(url, this.generacionUsuarioForm, { headers: this.httpHeaders });
+    this.data = this.http.post(url, this.generacionUsuarioForm, { headers: this.agregarAutorizacionHeader() });
     this.data.subscribe(data => {
       console.log(data);
 
       console.log(form.value);
-
+      swal.fire('Generacion usuario','el usuario fue creado con exito',"success" );
     });
     console.log("holass");
     //this.router.navigate(['/relevamientoInicial']);

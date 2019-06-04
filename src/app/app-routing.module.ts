@@ -5,23 +5,24 @@ import { GeneracionUsuarioComponent } from '../app/generacion-usuario/generacion
 import { RelevamientoInicialComponent } from './relevamiento-inicial/relevamiento-inicial.component';
 import { GenerarExelComponent } from './generar-exel/generar-exel.component';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './usuarios/guards/auth.guard';
 
 const routes: Routes = [
   {
   path: 'inicio',
-  component: InicioComponent
+  component: InicioComponent, canActivate:[AuthGuard]
   },
   {
     path: 'generacionUsuario',
-    component: GeneracionUsuarioComponent
+    component: GeneracionUsuarioComponent,canActivate:[AuthGuard]
   },
   {
     path: 'relevamientoInicial',
-    component: RelevamientoInicialComponent
+    component: RelevamientoInicialComponent, canActivate:[AuthGuard]
   },
   {
     path: 'exelPrueba',
-    component: GenerarExelComponent
+    component: GenerarExelComponent, canActivate:[AuthGuard]
   },
   {
     path: 'login',

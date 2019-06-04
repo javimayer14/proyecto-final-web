@@ -4,11 +4,28 @@
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="inputEmail4">Usuario</label>
-        <input  type="text"  class="form-control" id="inputEmail4" placeholder="Usuario" name ="usuario" [(ngModel)]="generacionUsuarioForm.usuario"  >
+        <input  type="text"  class="form-control" id="inputEmail4" placeholder="Usuario" name ="usuario" [(ngModel)]="generacionUsuarioForm.usuario" required minlength="4" #usuario="ngModel">
+        <div class="alert alert-danger" *ngIf="usuario.invalid && (usuario.dirty || usuario.touched)">
+          <div *ngIf="usuario.errors.required">
+            Usuario es requerido
+          </div>
+          <div *ngIf="usuario.errors.minlength">
+            minimo 4 caracteres
+          </div>
+        </div>
       </div>
+      
       <div class="form-group col-md-6">
         <label for="inputPassword4">Contraseña</label>
-        <input type="text" class="form-control" id="inputPassword" placeholder="Contraseña" name ="contrasenia" [(ngModel)]="generacionUsuarioForm.contrasenia" >
+        <input type="text" class="form-control" id="inputPassword" placeholder="Contraseña" name ="contrasenia" [(ngModel)]="generacionUsuarioForm.contrasenia" required minlength="4" #contrasenia="ngModel">
+       <div class="alert alert-danger" *ngIf="contrasenia.invalid && (contrasenia.dirty || contrasenia.touched)">
+        <div *ngIf="contrasenia.errors.required">
+          Contraseña es requerido
+        </div>
+        <div *ngIf="contrasenia.errors.minlength">
+          minimo 4 caracteres
+        </div>
+      </div>
       </div>
     </div>
     <div class="form-group">
@@ -18,25 +35,41 @@
     <div class="form-row">
       <div class="form-group col-md-4">
         <label for="inputAddress">Nombre</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="Nombre" name ="nombreUsuario" [(ngModel)]="generacionUsuarioForm.nombreUsuario">
+        <input type="text" class="form-control" id="inputAddress" placeholder="Nombre" name ="nombreUsuario" [(ngModel)]="generacionUsuarioForm.nombreUsuario" required minlength="4" #nombre="ngModel">
+        <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+        <div *ngIf="nombre.errors.required">
+          Nombre es requerido
+        </div>
+        <div *ngIf="nombre.errors.minlength">
+          minimo 4 caracteres
+        </div>
+      </div>
       </div>
       <div class="form-group col-md-4">
         <label for="inputAddress">Apellido</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="Apellido" name ="apellidoUsuario" [(ngModel)]="generacionUsuarioForm.apellidoUsuario">
+        <input type="text" class="form-control" id="inputAddress" placeholder="Apellido" name ="apellidoUsuario" [(ngModel)]="generacionUsuarioForm.apellidoUsuario" required minlength="4" #apellido="ngModel">
+        <div class="alert alert-danger" *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
+        <div *ngIf="apellido.errors.required">
+          Apellido es requerido
+        </div>
+        <div *ngIf="apellido.errors.minlength">
+          minimo 4 caracteres
+        </div>
+      </div>
       </div>
       <div class="form-group col-md-4">
         <label for="inputAddress">DNI</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="DNI" name ="dni" [(ngModel)]="generacionUsuarioForm.dni">
+        <input type="number" class="form-control" id="inputAddress" placeholder="DNI (solo numeros sin puntos ni signos)" name ="dni" [(ngModel)]="generacionUsuarioForm.dni">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-md-4">
         <label for="inputAddress2">Telefono</label>
-        <input type="text" class="form-control" id="inputAddress2" placeholder="Telefono" name ="telefono" [(ngModel)]="generacionUsuarioForm.telefono">
+        <input type="number" class="form-control" id="inputAddress2" placeholder="Telefono (solo numeros sin guiones ni signos)"  name ="telefono" [(ngModel)]="generacionUsuarioForm.telefono">
       </div>
       <div class="form-group col-md-4">
         <label for="inputAddress2">Telefono celular</label>
-        <input type="text" class="form-control" id="inputAddress2" placeholder="Telefono celular" name ="telefonoCelular" [(ngModel)]="generacionUsuarioForm.telefonoCelular">
+        <input type="number" class="form-control" id="inputAddress2" placeholder="Telefono celular (solo numeros sin guiones ni signos)" name ="telefonoCelular" [(ngModel)]="generacionUsuarioForm.telefonoCelular">
       </div>
       <div class="form-group col-md-4">
         <label for="inputAddress2">E-mail</label>
@@ -50,7 +83,7 @@
       </div>
       <div class="form-group col-md-6">
         <label for="inputAddress2">años de antiguedad</label>
-        <input type="text" class="form-control" id="inputAddress2" placeholder="años de antiguedad" name ="antiguedad" [(ngModel)]="generacionUsuarioForm.antiguedad">
+        <input type="number" class="form-control" id="inputAddress2" placeholder="años de antiguedad" name ="antiguedad" [(ngModel)]="generacionUsuarioForm.antiguedad">
       </div>
 
     </div>
@@ -160,6 +193,6 @@
         </div>
       </div>
 
-    <button type="submit" class="btn btn-primary">Sign in</button>
+    <button type="submit" class="btn btn-primary" [disabled]="!form.form.valid">Sign in</button>
   </form>
 </div>
