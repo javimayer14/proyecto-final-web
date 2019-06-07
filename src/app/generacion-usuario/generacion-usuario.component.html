@@ -2,7 +2,7 @@
   <h2>Datos del usuario:</h2>
   <form  #form="ngForm" (ngSubmit)="saveDataUsuario(form)" novalidate>
     <div class="form-row">
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-12">
         <label for="inputEmail4">Usuario</label>
         <input  type="text"  class="form-control" id="inputEmail4" placeholder="Usuario" name ="usuario" [(ngModel)]="generacionUsuarioForm.usuario" required minlength="4" #usuario="ngModel">
         <div class="alert alert-danger" *ngIf="usuario.invalid && (usuario.dirty || usuario.touched)">
@@ -14,26 +14,30 @@
           </div>
         </div>
       </div>
-      
-      <div class="form-group col-md-6">
-        <label for="inputPassword4">Contraseña</label>
-        <input type="text" class="form-control" id="inputPassword" placeholder="Contraseña" name ="contrasenia" [(ngModel)]="generacionUsuarioForm.contrasenia" required minlength="4" #contrasenia="ngModel">
-       <div class="alert alert-danger" *ngIf="contrasenia.invalid && (contrasenia.dirty || contrasenia.touched)">
-        <div *ngIf="contrasenia.errors.required">
-          Contraseña es requerido
-        </div>
-        <div *ngIf="contrasenia.errors.minlength">
-          minimo 4 caracteres
-        </div>
-      </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="inputAddress">Fecha de inicio en el proyecto</label>
-      <input type="text" class="form-control" id="inputAddress" placeholder="Fecha de inicio en el proyecto" name ="fechaInicioEnProyecto" [(ngModel)]="generacionUsuarioForm.fechaInicioEnProyecto">
     </div>
     <div class="form-row">
-      <div class="form-group col-md-4">
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Contraseña</label>
+      <input type="text" class="form-control" id="inputPassword" placeholder="Contraseña" name ="contrasenia" [(ngModel)]="generacionUsuarioForm.contrasenia" required minlength="4" #contrasenia="ngModel">
+     <div class="alert alert-danger" *ngIf="contrasenia.invalid && (contrasenia.dirty || contrasenia.touched)">
+      <div *ngIf="contrasenia.errors.required">
+        Contraseña es requerido
+      </div>
+      <div *ngIf="contrasenia.errors.minlength">
+        minimo 4 caracteres
+      </div>
+    </div>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">RepetirContraseña</label>
+      <input type="text" class="form-control" id="inputPassword" placeholder="RepetirContraseña" name ="contrasenia" [(ngModel)]="repiteContrasenia" required minlength="4" #contrasenia="ngModel">
+     <div class="alert alert-danger" *ngIf="contrasenia.invalid && (contrasenia.dirty || contrasenia.touched)">
+  
+    </div>
+    </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
         <label for="inputAddress">Nombre</label>
         <input type="text" class="form-control" id="inputAddress" placeholder="Nombre" name ="nombreUsuario" [(ngModel)]="generacionUsuarioForm.nombreUsuario" required minlength="4" #nombre="ngModel">
         <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
@@ -45,7 +49,7 @@
         </div>
       </div>
       </div>
-      <div class="form-group col-md-4">
+      <div class="form-group col-md-6">
         <label for="inputAddress">Apellido</label>
         <input type="text" class="form-control" id="inputAddress" placeholder="Apellido" name ="apellidoUsuario" [(ngModel)]="generacionUsuarioForm.apellidoUsuario" required minlength="4" #apellido="ngModel">
         <div class="alert alert-danger" *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
@@ -57,19 +61,39 @@
         </div>
       </div>
       </div>
-      <div class="form-group col-md-4">
+    
+    </div>
+
+    <div class="form-group">
+      <label for="exampleFormControlSelect1">Tipo de usuario a crear</label>
+      <select class="form-control" name ="role" [(ngModel)]="generacionUsuarioForm.role" #tipoUser="ngModel" (change)="capturar()">
+        <option>Usuario administrador</option>
+        <option>Delegado</option>
+
+      </select>
+    </div>
+<div *ngIf="tipoUsuarioSelect == 'Delegado' ">
+
+   
+    <div class="form-row">
+ 
+      <div class="form-group col-md-6">
         <label for="inputAddress">DNI</label>
-        <input type="number" class="form-control" id="inputAddress" placeholder="DNI (solo numeros sin puntos ni signos)" name ="dni" [(ngModel)]="generacionUsuarioForm.dni">
+        <input type="text" class="form-control" id="inputAddress" placeholder="DNI (solo numeros sin puntos ni signos)" name ="dni" [(ngModel)]="generacionUsuarioForm.dni">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputAddress">Fecha de inicio en el proyecto</label>
+        <input type="text" class="form-control" id="inputAddress" placeholder="Fecha de inicio en el proyecto" name ="fechaInicioEnProyecto" [(ngModel)]="generacionUsuarioForm.fechaInicioEnProyecto">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-md-4">
         <label for="inputAddress2">Telefono</label>
-        <input type="number" class="form-control" id="inputAddress2" placeholder="Telefono (solo numeros sin guiones ni signos)"  name ="telefono" [(ngModel)]="generacionUsuarioForm.telefono">
+        <input type="text" class="form-control" id="inputAddress2" placeholder="Telefono (solo numeros sin guiones ni signos)"  name ="telefono" [(ngModel)]="generacionUsuarioForm.telefono">
       </div>
       <div class="form-group col-md-4">
         <label for="inputAddress2">Telefono celular</label>
-        <input type="number" class="form-control" id="inputAddress2" placeholder="Telefono celular (solo numeros sin guiones ni signos)" name ="telefonoCelular" [(ngModel)]="generacionUsuarioForm.telefonoCelular">
+        <input type="text" class="form-control" id="inputAddress2" placeholder="Telefono celular (solo numeros sin guiones ni signos)" name ="telefonoCelular" [(ngModel)]="generacionUsuarioForm.telefonoCelular">
       </div>
       <div class="form-group col-md-4">
         <label for="inputAddress2">E-mail</label>
@@ -83,7 +107,7 @@
       </div>
       <div class="form-group col-md-6">
         <label for="inputAddress2">años de antiguedad</label>
-        <input type="number" class="form-control" id="inputAddress2" placeholder="años de antiguedad" name ="antiguedad" [(ngModel)]="generacionUsuarioForm.antiguedad">
+        <input type="text" class="form-control" id="inputAddress2" placeholder="años de antiguedad" name ="antiguedad" [(ngModel)]="generacionUsuarioForm.antiguedad">
       </div>
 
     </div>
@@ -192,6 +216,8 @@
           <input type="text" class="form-control" id="inputPassword" placeholder="Rama de actividad" name ="ramaActividad4" [(ngModel)]="generacionUsuarioForm.ramaActividad4">
         </div>
       </div>
+
+    </div>
 
     <button type="submit" class="btn btn-primary" [disabled]="!form.form.valid">Sign in</button>
   </form>

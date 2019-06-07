@@ -15,6 +15,8 @@ import swal from 'sweetalert2';
 export class GeneracionUsuarioComponent implements OnInit {
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
   data: Observable<any>;
+  tipoUsuarioSelect =  '';
+  repiteContrasenia = '';
   constructor(private router: Router, public http: HttpClient, public authService:AuthService) { }
 
   private agregarAutorizacionHeader(){
@@ -29,8 +31,8 @@ export class GeneracionUsuarioComponent implements OnInit {
   }
 
   generacionUsuarioForm = {
-    usuario: "",
-    contrasenia: "",
+    username: "",
+    password: "",
     fechaInicioEnProyecto: "",
     nombreUsuario: "",
     apellidoUsuario: "",
@@ -63,15 +65,17 @@ export class GeneracionUsuarioComponent implements OnInit {
     ramaActividad3: "",
     cctNro4: "",
     ramaActividad4: "",
-    check: null
+    check: null,
+    enabled: null,
+    role: ""
 
   }
   public saveDataUsuario(form) {
 
-    var url = "http://localhost:8080/api/delegados"
+    var url = "http://localhost:8080/api/usuarios"
     let postData = new FormData();
-    this.generacionUsuarioForm.usuario = form.value.usuario;
-    this.generacionUsuarioForm.contrasenia = form.value.contrasenia;
+    this.generacionUsuarioForm.username = form.value.usuario;
+    this.generacionUsuarioForm.password = form.value.contrasenia;
     this.generacionUsuarioForm.fechaInicioEnProyecto = form.value.fechaInicioEnProyecto;
     this.generacionUsuarioForm.nombreUsuario = form.value.nombreUsuario;
     this.generacionUsuarioForm.apellidoUsuario = form.value.apellidoUsuario;
@@ -105,6 +109,8 @@ export class GeneracionUsuarioComponent implements OnInit {
     this.generacionUsuarioForm.cctNro4 = form.value.cctNro4;
     this.generacionUsuarioForm.ramaActividad4 = form.value.ramaActividad4;
     this.generacionUsuarioForm.check = form.value.check;
+    this.generacionUsuarioForm.enabled = true;
+    //this.generacionUsuarioForm.role = form.value.role;
 
     this.data = this.http.post(url, this.generacionUsuarioForm, { headers: this.agregarAutorizacionHeader() });
     this.data.subscribe(data => {
@@ -117,4 +123,15 @@ export class GeneracionUsuarioComponent implements OnInit {
     //this.router.navigate(['/relevamientoInicial']);
 
   }
+
+  public capturar(){
+    this.tipoUsuarioSelect = this.generacionUsuarioForm.role;
+  }
+
+  /*compararContrasenias(){
+    if(this.generacionUsuarioForm.password == this.repiteContrasenia){
+      true
+    }
+    else {false} ;
+  }*/
 }
