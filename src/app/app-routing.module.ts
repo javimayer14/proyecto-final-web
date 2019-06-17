@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'generacionUsuario',
-    component: GeneracionUsuarioComponent,canActivate:[AuthGuard]
+    component: GeneracionUsuarioComponent, canActivate:[AuthGuard]
   },
   {
     path: 'relevamientoInicial',

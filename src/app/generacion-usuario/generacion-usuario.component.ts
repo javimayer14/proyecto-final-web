@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import {InicioComponent} from '../inicio/inicio.component'
 import { AuthService } from '../services/usuarios/auth.service';
 import swal from 'sweetalert2';
+import { JsonAdaptor } from '@syncfusion/ej2-data';
 
 
 @Component({
@@ -17,6 +18,8 @@ export class GeneracionUsuarioComponent implements OnInit {
   data: Observable<any>;
   tipoUsuarioSelect =  '';
   repiteContrasenia = '';
+  role = '1';
+ tipoUsuario = '';
   constructor(private router: Router, public http: HttpClient, public authService:AuthService) { }
 
   private agregarAutorizacionHeader(){
@@ -67,7 +70,7 @@ export class GeneracionUsuarioComponent implements OnInit {
     ramaActividad4: "",
     check: null,
     enabled: null,
-    role: ""
+    role : null
 
   }
   public saveDataUsuario(form) {
@@ -110,9 +113,15 @@ export class GeneracionUsuarioComponent implements OnInit {
     this.generacionUsuarioForm.ramaActividad4 = form.value.ramaActividad4;
     this.generacionUsuarioForm.check = form.value.check;
     this.generacionUsuarioForm.enabled = true;
-    //this.generacionUsuarioForm.role = form.value.role;
-
-    this.data = this.http.post(url, this.generacionUsuarioForm, { headers: this.agregarAutorizacionHeader() });
+    this.generacionUsuarioForm.role =  1;
+   
+    if(this.role == 'Usuario administrador'){
+      this.tipoUsuario = '2';
+    }else if (this.role == 'Delegado'){
+      this.tipoUsuario = '1';
+    }
+    let params = new HttpParams().set("role", this.tipoUsuario);
+    this.data = this.http.post(url, this.generacionUsuarioForm, { headers: this.agregarAutorizacionHeader(),params: params});
     this.data.subscribe(data => {
       console.log(data);
 
@@ -125,13 +134,7 @@ export class GeneracionUsuarioComponent implements OnInit {
   }
 
   public capturar(){
-    this.tipoUsuarioSelect = this.generacionUsuarioForm.role;
+    //this.tipoUsuarioSelect = this.generacionUsuarioForm.role;
   }
 
-  /*compararContrasenias(){
-    if(this.generacionUsuarioForm.password == this.repiteContrasenia){
-      true
-    }
-    else {false} ;
-  }*/
 }

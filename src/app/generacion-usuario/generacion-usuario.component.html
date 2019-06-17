@@ -18,7 +18,7 @@
     <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputPassword4">Contraseña</label>
-      <input type="text" class="form-control" id="inputPassword" placeholder="Contraseña" name ="contrasenia" [(ngModel)]="generacionUsuarioForm.contrasenia" required minlength="4" #contrasenia="ngModel">
+      <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña" name ="contrasenia" [(ngModel)]="generacionUsuarioForm.contrasenia" required minlength="4" #contrasenia="ngModel">
      <div class="alert alert-danger" *ngIf="contrasenia.invalid && (contrasenia.dirty || contrasenia.touched)">
       <div *ngIf="contrasenia.errors.required">
         Contraseña es requerido
@@ -30,9 +30,16 @@
     </div>
     <div class="form-group col-md-6">
       <label for="inputPassword4">RepetirContraseña</label>
-      <input type="text" class="form-control" id="inputPassword" placeholder="RepetirContraseña" name ="contrasenia" [(ngModel)]="repiteContrasenia" required minlength="4" #contrasenia="ngModel">
-     <div class="alert alert-danger" *ngIf="contrasenia.invalid && (contrasenia.dirty || contrasenia.touched)">
-  
+      <input type="password" class="form-control" id="inputPassword" placeholder="RepetirContraseña" name ="passwordRepit" [(ngModel)]="passwordRepit"  required minlength="4" #pass="ngModel">
+     <div *ngIf="contrasenia.value != pass.value && (pass.dirty || pass.touched)" class="alert alert-danger">
+      <div >
+      las contraseñas no son iguales !
+      </div>
+    </div>
+    <div *ngIf="contrasenia.value == pass.value && (pass.dirty || pass.touched)" class="alert alert-success">
+      <div >
+        contraseñas correctas !
+      </div>
     </div>
     </div>
     </div>
@@ -66,13 +73,13 @@
 
     <div class="form-group">
       <label for="exampleFormControlSelect1">Tipo de usuario a crear</label>
-      <select class="form-control" name ="role" [(ngModel)]="generacionUsuarioForm.role" #tipoUser="ngModel" (change)="capturar()">
+      <select class="form-control" name ="role" [(ngModel)]="role" #tipoUser="ngModel" (change)="capturar()">
         <option>Usuario administrador</option>
         <option>Delegado</option>
 
       </select>
     </div>
-<div *ngIf="tipoUsuarioSelect == 'Delegado' ">
+<div *ngIf="role == 'Delegado' ">
 
    
     <div class="form-row">
