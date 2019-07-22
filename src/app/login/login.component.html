@@ -1,24 +1,30 @@
-<div class="container">
-<div class ="card border-primary text-center">
-  <div class= "card-header">{{titulo}}</div>
-  <div class="card-body">
-    
-  <form method="POST">
-    <div class = "form-goup col-sm-12">
-        <input [(ngModel)]="usuario.username" type="text" class="form-control" name="username" id="username" placeholder="Usuario" autofocus required>
+
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first logo">
+      <img src="../../assets/img/logo.png" id="icon" alt="User Icon" />
     </div>
 
-    <div class = "form-goup col-sm-12">
-        <input [(ngModel)]="usuario.password" type="password" class="form-control" name="password" id="password" placeholder="contraseña" required>
+    <!-- Login Form -->
+    <form  method="POST">
+      <input [(ngModel)]="usuario.username" name="username" id="username" type="text"  class="fadeIn second"  placeholder="usuario" >
+      <input [(ngModel)]="usuario.password" name="password" id="password" type="text" class="fadeIn third" placeholder="password">
+      <input  (click)="logIn();" type="submit" class="fadeIn fourth" value="Log In">
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" href="#">Forgot Password?</a>
     </div>
 
-    <div class = "form-goup col-sm-12">
-        <input (click)="logIn();" type="submit" class="btn btn-lg btn-primary btn-block" value ="Login">
-    </div>
-  </form>
-  
   </div>
-  </div>
-
-
 </div>

@@ -1,4 +1,4 @@
-<div class ="container">
+<div class ="container fadeIn first" >
 <form  #form="ngForm" (ngSubmit)="saveDataUsuario(form)" novalidate>
   <div *ngFor ="let x of trabajadores; index as i" class="form-row">
     <div class="form-group col-md-4">
@@ -18,7 +18,7 @@
       <input type="text" class="form-control" id="inputPassword" placeholder="Trabajadores afiliados a la UOM" name ="totalUom {{i}}" [(ngModel)]="relevamientoForm.totalUom">
     </div>
   </div>
-  <button (click)="agregarTrabajador()" type="button" class="btn btn-primary">+</button>
-  <button  type="submit" class="btn btn-primary">Confirmar</button>
+  <button (click)="agregarTrabajador()" type="button" class="btn btn-primary fadeIn second">+</button>
+  <button  type="submit" class="btn btn-primary fadeIn second">Confirmar</button>
 </form>
 </div>

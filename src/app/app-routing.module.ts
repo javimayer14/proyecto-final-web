@@ -5,6 +5,7 @@ import { GeneracionUsuarioComponent } from '../app/generacion-usuario/generacion
 import { RelevamientoInicialComponent } from './relevamiento-inicial/relevamiento-inicial.component';
 import { GenerarExelComponent } from './generar-exel/generar-exel.component';
 import { LoginComponent } from './login/login.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
 import { AuthGuard } from './usuarios/guards/auth.guard';
 
 const routes: Routes = [
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'usuarios',
+    component: UsuariosComponent
   }
 ];
 

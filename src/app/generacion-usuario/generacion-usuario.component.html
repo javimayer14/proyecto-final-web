@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container fadeIn first">
   <h2>Datos del usuario:</h2>
   <form  #form="ngForm" (ngSubmit)="saveDataUsuario(form)" novalidate>
     <div class="form-row">
@@ -226,6 +226,6 @@
 
     </div>
 
-    <button type="submit" class="btn btn-primary" [disabled]="!form.form.valid">Sign in</button>
+    <button type="submit" class="btn btn-primary fadeIn second" [disabled]="!form.form.valid">Confirmar</button>
   </form>
 </div>
