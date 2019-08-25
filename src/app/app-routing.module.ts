@@ -7,6 +7,7 @@ import { GenerarExelComponent } from './generar-exel/generar-exel.component';
 import { LoginComponent } from './login/login.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { AuthGuard } from './usuarios/guards/auth.guard';
+import { HistorialComponent } from './historial/historial.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'usuarios',
     component: UsuariosComponent
+  },
+  {
+    path: 'historial',
+    component: HistorialComponent,
   }
 ];
 

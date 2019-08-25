@@ -14,6 +14,7 @@ import { BuscadorComponent } from './buscador/buscador.component';
 import { GenerarExelComponent } from './generar-exel/generar-exel.component';
 import { LoginComponent } from './login/login.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { HistorialComponent } from './historial/historial.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
     BuscadorComponent,
     GenerarExelComponent,
     LoginComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    HistorialComponent
     
   ],
   imports: [
