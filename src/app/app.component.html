@@ -8,16 +8,16 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a  class="nav-link" routerLink="inicio" href="#">Buscar <span class="sr-only">(current)</span></a>
+        <a *ngIf="authService.isAuthenticated()" class="nav-link" routerLink="inicio" href="#">Buscar <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="generacionUsuario" href="#">Generación usuario</a>
+        <a *ngIf="authService.isAuthenticated()" class="nav-link" routerLink="generacionUsuario" href="#">Generación usuario</a>
       </li>
       <li  class="nav-item">
-        <a class="nav-link" routerLink="usuarios" href="#">Listado delegados/usuarios</a>
+        <a *ngIf="authService.isAuthenticated()" class="nav-link" routerLink="usuarios" href="#">Listado delegados/usuarios</a>
       </li>
       <li  class="nav-item">
-        <a class="nav-link" routerLink="historial" href="#">Historial</a>
+        <a *ngIf="authService.isAuthenticated()" class="nav-link" routerLink="historial" href="#">Historial</a>
       </li>
     </ul>
     <ul class="navbar-nav navbar-right">
