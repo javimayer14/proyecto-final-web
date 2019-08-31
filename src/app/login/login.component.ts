@@ -18,11 +18,11 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit() {
-    if(this.authService.isAuthenticated){
-      this.router.navigate(['/inicio']);
-      swal.fire('Error Login','Ya estas logueado',"info");
+    // if(this.authService.isAuthenticated){
+    //   this.router.navigate(['/inicio']);
+    //   swal.fire('Error Login','Ya estas logueado',"info");
       
-    }
+    //}
   }
 
   logIn():void{

@@ -122,6 +122,7 @@ export class GeneracionUsuarioComponent implements OnInit {
     }
     let params = new HttpParams().set("role", this.tipoUsuario);
     this.data = this.http.post(url, this.generacionUsuarioForm, { headers: this.agregarAutorizacionHeader(),params: params});
+    console.log(this.generacionUsuarioForm);
     this.data.subscribe(data => {
       console.log(data);
 

@@ -29,8 +29,8 @@
     </div>
     </div>
     <div class="form-group col-md-6">
-      <label for="inputPassword4">RepetirContraseña</label>
-      <input type="password" class="form-control" id="inputPassword" placeholder="RepetirContraseña" name ="passwordRepit" [(ngModel)]="passwordRepit"  required minlength="4" #pass="ngModel">
+      <label for="inputPassword4">Repetir contraseña</label>
+      <input type="password" class="form-control" id="inputPassword" placeholder="Repetir contraseña" name ="passwordRepit" [(ngModel)]="passwordRepit"  required minlength="4" #pass="ngModel">
      <div *ngIf="contrasenia.value != pass.value && (pass.dirty || pass.touched)" class="alert alert-danger">
       <div >
       las contraseñas no son iguales !

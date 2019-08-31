@@ -28,7 +28,7 @@ const EXCEL_EXTENSION = '.xlsx';
 
 export class InicioComponent {
   public minDate: Date = new Date ("01/01/1975");
-  public maxDate: Date = new Date ("01/01/2019");
+  public maxDate: Date = new Date ();
   public value: Date = new Date ("05/16/2017");
   public datosBusqueda:{} = {};
   public x = "";
