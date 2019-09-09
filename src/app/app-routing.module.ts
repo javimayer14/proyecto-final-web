@@ -16,15 +16,15 @@ const routes: Routes = [
   },
   {
     path: 'generacionUsuario',
-    component: GeneracionUsuarioComponent, canActivate:[AuthGuard]
+    component: GeneracionUsuarioComponent
   },
   {
     path: 'relevamientoInicial',
-    component: RelevamientoInicialComponent, canActivate:[AuthGuard]
+    component: RelevamientoInicialComponent
   },
   {
     path: 'exelPrueba',
-    component: GenerarExelComponent, canActivate:[AuthGuard]
+    component: GenerarExelComponent
   },
   {
     path: 'login',
@@ -32,7 +32,7 @@ const routes: Routes = [
   },
   {
     path: 'usuarios',
-    component: UsuariosComponent, canActivate:[AuthGuard]
+    component: UsuariosComponent
   },
   {
     path: 'historial',
