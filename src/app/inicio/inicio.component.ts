@@ -50,12 +50,65 @@ export class InicioComponent {
       }
       return this.httpHeaders;
   }
+  generarCamb(){
+    let dataJson:any[] =[];
+   
+    for(var x in this.data){
+      console.log("ACA ARRANCA");
+      console.log(this.data[x]);
+      dataJson.push({
+        Nombre:this.data[x][0],
+        Apellido:this.data[x][1],
+        Nombre_empresa:this.data[x][2],
+        Fecha_carga:this.data[x][4],
+        Cambio:this.data[x][5],
+        Descripcíon:this.data[x][6]
+      });
+    }
+    this.exportAsExcelFile(dataJson,'ejemplo');
+  }
 
-  generar(){
-    this.exportAsExcelFile(this.data,'ejemplo');
+  generarConf(){
+    let dataJson:any[] =[];
+   
+    for(var x in this.data){
+      console.log("ACA ARRANCA");
+      console.log(this.data[x]);
+      dataJson.push({
+        Nombre:this.data[x][0],
+        Apellido:this.data[x][1],
+        Nombre_empresa:this.data[x][2],
+        Fecha_carga:this.data[x][3],
+        Medida:this.data[x][6],
+        Descripcíon:this.data[x][5]
+      });
+    }
+    this.exportAsExcelFile(dataJson,'ejemplo');
+  }
+
+  generarVar(){
+    let dataJson:any[] =[];
+   
+    for(var x in this.data){
+      console.log("ACA ARRANCA");
+      console.log(this.data[x]);
+      dataJson.push({
+        Nombre:this.data[x][0],
+        Apellido:this.data[x][1],
+        Nombre_empresa:this.data[x][3],
+        Fecha_carga:this.data[x][4],
+        tipo_variacion:this.data[x][5],
+        numero_trabajadores:this.data[x][8],
+        inc_reinc:this.data[x][6],
+        Descripcion:this.data[x][7]
+      });
+    }
+    this.exportAsExcelFile(dataJson,'ejemplo');
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
+
+    json.forEach
     
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     console.log('worksheet',worksheet);
@@ -118,7 +171,7 @@ public validacionParametros(form){
     data  => {
     this.datosBusqueda = data;
     this.data =data;
-    swal.fire('Variaciones','los datos fueron recuperados con exito',"success" );
+    swal.fire('Variaciones','los datos fueron recuperados con éxito',"success" );
     console.log(fechaFormatoCorrectoHasta);
     console.log("PUT Request is successful ", this.datosBusqueda);
     
@@ -170,7 +223,7 @@ public validacionParametros(form){
 
     data  => {
     this.data = data;
-    swal.fire('Variaciones','los datos fueron recuperados con exito',"success" );
+    swal.fire('Conflictos','los datos fueron recuperados con éxito',"success" );
 
     console.log("PUT Request is successful ", data);
     
@@ -212,7 +265,7 @@ public validacionParametros(form){
     data  => {
     this.datosBusqueda = data;
     this.data = data;
-    swal.fire('Variaciones','los datos fueron recuperados con exito',"success" );
+    swal.fire('Cambios','los datos fueron recuperados con éxito',"success" );
     console.log("PUT Request is successful ", data);
     
     });

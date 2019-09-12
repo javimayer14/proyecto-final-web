@@ -12,7 +12,9 @@
       </div>
     </div>
   </div>
+  <button type="submit" (click)="generar()" class="btn btn-primary">Generar exel</button>
 
+  <hr>
   <div class="row">
     <div *ngFor="let reg of datosBusqueda" class="col-md-4">
       <div *ngIf="reg[0]=='CONF'" class="card-deck">
@@ -20,10 +22,12 @@
           <img src="../../assets/img/conflicto.png" class="card-img-top img-fluid" alt="...">
           <div class="card-body">
             <h5 class="card-title">Conflicto laboral</h5>
+            <button (click)="eliminarRegistro(1,reg[7],reg[9],'descripcion_conflicto')">probando</button>
             <p class="card-text">{{reg[6]}}</p>
             <hr>
             <p class="card-text">Motivo: {{reg[1]}}</p>
             <p class="card-text">Medida: {{reg[8]}}</p>
+           
           </div>
           <div class="card-footer">
             <small class="text-muted">fecha de suceso: {{reg[9]}}</small>

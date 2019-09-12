@@ -1,24 +1,280 @@
-<div class ="container fadeIn first" >
-<form  #form="ngForm" (ngSubmit)="saveDataUsuario(form)" novalidate>
-  <div *ngFor ="let x of trabajadores; index as i" class="form-row">
-    <div class="form-group col-md-4">
-      <label for="exampleFormControlSelect1">Tipo de trabajador</label>
-      <select class="form-control" id="exampleFormControlSelect1" placeholder="Tipo de trabajador"  name ="tipo {{i}}" [(ngModel)]="relevamientoForm.tipo">
-        <option>1</option>
-        <option>2</option>
-    
-      </select>
+<div class="container fadeIn first">
+  <h1>Usuarios</h1>
+  <hr />
+  <form #form="ngForm" (ngSubmit)="saveData(form)" novalidate>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table_responsive">
+          <table class="table">
+            <table class="table">
+              <thead class="">
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Tipo de contrato</th>
+                  <th scope="col">Cantidad</th>
+                  <th scope="col">Afiliados</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Directos:</th>
+                  <td></td>
+                  <td>
+                    <input
+                      name="buscar"
+                      type="number"
+                      class="form-control"
+                      placeholder="Cantidad de trabajadores"
+                      [(ngModel)]="relevamientoForm.cant_directos"
+                    />
+                  </td>
+
+                  <td>
+                    <input
+                      name="buscar"
+                      type="number"
+                      class="form-control"
+                      placeholder="Cantidad de trabajadores"
+                      [(ngModel)]="relevamientoForm.cant_directos_uom"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Sub contratados/as:</th>
+                  <td></td>
+                  <td>
+                    <input
+                      name="buscar"
+                      type="number"
+                      class="form-control"
+                      placeholder="Cantidad de trabajadores"
+                      [(ngModel)]="relevamientoForm.cant_subcontratados"
+                    />
+                  </td>
+
+                  <td>
+                    <input
+                      name="buscar"
+                      type="number"
+                      class="form-control"
+                      placeholder="Cantidad de trabajadores"
+                      [(ngModel)]="relevamientoForm.cant_subcontratados_uom"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Pasantia/Beca:</th>
+                  <td></td>
+                  <td>
+                    <input
+                      name="buscar"
+                      type="number"
+                      class="form-control"
+                      placeholder="Cantidad de trabajadores"
+                      [(ngModel)]="relevamientoForm.cant_pasantias_becas"
+                    />
+                  </td>
+
+                  <td>
+                    <input
+                      name="buscar"
+                      type="number"
+                      class="form-control"
+                      placeholder="Cantidad de trabajadores"
+                      [(ngModel)]="relevamientoForm.cant_pasantias_becas_uom"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Monotributistas:</th>
+                  <td></td>
+                  <td>
+                    <input
+                      name="buscar"
+                      type="number"
+                      class="form-control"
+                      placeholder="Cantidad de trabajadores"
+                      [(ngModel)]="relevamientoForm.cant_monotributistas"
+                    />
+                  </td>
+
+                  <td>
+                    <input
+                      name="buscar"
+                      type="number"
+                      class="form-control"
+                      placeholder="Cantidad de trabajadores"
+                      [(ngModel)]="relevamientoForm.cant_monotributistas_uom"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Subvencionados/as:</th>
+                  <td></td>
+                  <td>
+                    <input
+                      name="buscar"
+                      type="number"
+                      class="form-control"
+                      placeholder="Cantidad de trabajadores"
+                      [(ngModel)]="relevamientoForm.cant_subvencionados"
+                    />
+                  </td>
+
+                  <td>
+                    <input
+                      name="buscar"
+                      type="number"
+                      class="form-control"
+                      placeholder="Cantidad de trabajadores"
+                      [(ngModel)]="relevamientoForm.cant_subvencionados_uom"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Temporarios/as:</th>
+                  <td></td>
+                  <td>
+                    <input
+                      name="buscar"
+                      type="number"
+                      class="form-control"
+                      placeholder="Cantidad de trabajadores"
+                      [(ngModel)]="relevamientoForm.cant_contratos_temporarios"
+                    />
+                  </td>
+
+                  <td>
+                    <input
+                      name="buscar"
+                      type="number"
+                      class="form-control"
+                      placeholder="Cantidad de trabajadores"
+                      [(ngModel)]="
+                        relevamientoForm.cant_contratos_temporarios_uom
+                      "
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Terciarizados/as:</th>
+                  <td></td>
+                  <td>
+                    <input
+                      name="buscar"
+                      type="number"
+                      class="form-control"
+                      placeholder="Cantidad de trabajadores"
+                      [(ngModel)]="relevamientoForm.cant_terciarizados"
+                    />
+                  </td>
+
+                  <td>
+                    <input
+                      name="buscar"
+                      type="number"
+                      class="form-control"
+                      placeholder="Cantidad de trabajadores"
+                      [(ngModel)]="relevamientoForm.cant_terciarizados_uom"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Por agencia:</th>
+                  <td></td>
+                  <td>
+                    <input
+                      name="buscar"
+                      type="number"
+                      class="form-control"
+                      placeholder="Cantidad de trabajadores"
+                      [(ngModel)]="relevamientoForm.cant_agencia"
+                    />
+                  </td>
+
+                  <td>
+                    <input
+                      name="buscar"
+                      type="number"
+                      class="form-control"
+                      placeholder="Cantidad de trabajadores"
+                      [(ngModel)]="relevamientoForm.cant_agencia_uom"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Personas con discapacidad:</th>
+                  <td></td>
+                  <td>
+                    <input
+                      name="buscar"
+                      type="number"
+                      class="form-control"
+                      placeholder="Cantidad de trabajadores"
+                      [(ngModel)]="relevamientoForm.cant_personas_discapacidad"
+                    />
+                  </td>
+
+                  <td>
+                    <input
+                      name="buscar"
+                      type="number"
+                      class="form-control"
+                      placeholder="Cantidad de trabajadores"
+                      [(ngModel)]="
+                        relevamientoForm.cant_personas_discapacidad_uom
+                      "
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">No registrado:</th>
+                  <td></td>
+                  <td>
+                    <input
+                      name="buscar"
+                      type="number"
+                      class="form-control"
+                      placeholder="Cantidad de trabajadores"
+                      [(ngModel)]="relevamientoForm.cant_no_registrados"
+                    />
+                  </td>
+
+                  <td>
+                    <input
+                      name="buscar"
+                      type="number"
+                      class="form-control"
+                      placeholder="Cantidad de trabajadores"
+                      [(ngModel)]="relevamientoForm.cant_no_registrados_uom"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </table>
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Observaciones</span>
+        </div>
+        <textarea
+          name="descripcion"
+          class="form-control"
+          aria-label="With textarea"
+          [(ngModel)]="relevamientoForm.descripcion"
+        ></textarea>
+      </div>
     </div>
-    <div class="form-group col-md-4">
-      <label for="inputPassword4">Total trabajadores</label>
-      <input type="text" class="form-control" id="inputPassword" placeholder="Total trabajadores" name ="totalTrabajadores {{i}}" [(ngModel)]="relevamientoForm.totalTrabajadores">
-    </div>
-    <div class="form-group col-md-4">
-      <label for="inputPassword4">Trabajadores afiliados a la UOM</label>
-      <input type="text" class="form-control" id="inputPassword" placeholder="Trabajadores afiliados a la UOM" name ="totalUom {{i}}" [(ngModel)]="relevamientoForm.totalUom">
-    </div>
-  </div>
-  <button (click)="agregarTrabajador()" type="button" class="btn btn-primary fadeIn second">+</button>
-  <button  type="submit" class="btn btn-primary fadeIn second">Confirmar</button>
-</form>
+    <br />
+    <button
+      type="submit"
+      class="btn btn-primary fadeIn second"
+      [disabled]="!form.form.valid"
+    >
+      Confirmar
+    </button>
+    <br />
+  </form>
 </div>

@@ -16,7 +16,10 @@ import { ManejoErroresService } from '../services/manejo-errores.service';
 import { throwError } from '@syncfusion/ej2-base';
 import swal from 'sweetalert2';
 import { AuthService } from '../services/usuarios/auth.service';
+import { logging } from 'protractor';
 
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+const EXCEL_EXTENSION = '.xlsx';
 
 @Component({
   selector: 'app-historial',
@@ -27,6 +30,7 @@ export class HistorialComponent implements OnInit {
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
   datosBusqueda = {}
   buscar:string = "";
+  dataExel:any= [];
   constructor( private http:HttpClient, private authService:AuthService) { 
 
   }
@@ -48,6 +52,21 @@ export class HistorialComponent implements OnInit {
       });
   }
 
+  eliminarRegistro(tipo:string,idUsuario:string,fecha:string,desc:string){
+
+  let params = new HttpParams().set("tipo",tipo).set("idUsuario", idUsuario).set("fecha", fecha).set("desc",desc); //Create new HttpParams
+  console.log("ESTOS SON LOS PARAMETROS " + params);
+  
+     
+    return this.http.get('http://localhost:8080/api/usuarios/historial/delete', {headers: this.agregarAutorizacionHeader(),params: params}).subscribe(
+  
+      data  => {
+      console.log("PUT Request is successful ", data);
+      
+      });
+
+  }
+
   private agregarAutorizacionHeader(){
     let token = this.authService.token;
     if(token != null){
@@ -67,9 +86,49 @@ export class HistorialComponent implements OnInit {
 
       data  => {
       this.datosBusqueda = data;
+      this.dataExel= data;
       console.log("PUT Request is successful ", this.datosBusqueda);    
       });
 
     }
   }
+
+  generar(){
+   let dataJson:any[] =[];
+   
+    for(var x in this.dataExel){
+      console.log("ACA ARRANCA");
+      console.log(this.dataExel[x]);
+      dataJson.push({
+        tipo_registro:this.dataExel[x][0],
+        motivo:this.dataExel[x][1],
+        tipo_contrato:this.dataExel[x][3],
+        inc_o_reinc:this.dataExel[x][4],
+        tipo_variacion:this.dataExel[x][5],
+        descripcion:this.dataExel[x][6],
+        medida:this.dataExel[x][8],
+        fecha:this.dataExel[x][9]
+      });
+    }
+    this.exportAsExcelFile(dataJson,'ejemplo');
+  }
+
+  public exportAsExcelFile(json: any[], excelFileName: string): void {
+
+    
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
+    console.log('worksheet',worksheet);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    //const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
+    this.saveAsExcelFile(excelBuffer, excelFileName);
+  }
+
+  private saveAsExcelFile(buffer: any, fileName: string): void {
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+  }
+
 }

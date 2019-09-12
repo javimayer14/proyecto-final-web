@@ -1,35 +1,113 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { Observable } from "rxjs";
+import { AuthService } from "../services/usuarios/auth.service";
+import swal from "sweetalert2";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-relevamiento-inicial',
-  templateUrl: './relevamiento-inicial.component.html',
-  styleUrls: ['./relevamiento-inicial.component.css']
+  selector: "app-relevamiento-inicial",
+  templateUrl: "./relevamiento-inicial.component.html",
+  styleUrls: ["./relevamiento-inicial.component.css"]
 })
 export class RelevamientoInicialComponent implements OnInit {
-  trabajadores:any[]=[];
-  constructor() {
-    this.trabajadores =[1,2];
-   }
-   public agregarTrabajador(){
-     this.trabajadores.push(1);
-   }
+  trabajadores: any[] = [];
+  data: Observable<any>;
+  private httpHeaders = new HttpHeaders({ "Content-Type": "application/json" });
 
-   relevamientoForm  = {
-      lista: {
-        tipo : "",
-        totalTrabajadores : "",
-        totalUom : "",
-      },
-    tipo : "",
-    totalTrabajadores : "",
-    totalUom : "",
-
+  constructor(
+    public http: HttpClient,
+    public authService: AuthService,
+    public router: Router
+  ) {
+    this.trabajadores = [1, 2];
   }
-  saveDataUsuario(form){
+  public agregarTrabajador() {
+    this.trabajadores.push(1);
+  }
+
+  relevamientoForm = {
+    id_delegado: 0,
+    cant_directos: 0,
+    cant_directos_uom: 0,
+    cant_subcontratados: 0,
+    cant_subcontratados_uom: 0,
+    cant_pasantias_becas: 0,
+    cant_pasantias_becas_uom: 0,
+    cant_monotributistas: 0,
+    cant_monotributistas_uom: 0,
+    cant_subvencionados: 0,
+    cant_subvencionados_uom: 0,
+    cant_contratos_temporarios: 0,
+    cant_contratos_temporarios_uom: 0,
+    cant_terciarizados: 0,
+    cant_terciarizados_uom: 0,
+    cant_agencia: 0,
+    cant_agencia_uom: 0,
+    cant_personas_discapacidad: 0,
+    cant_personas_discapacidad_uom: 0,
+    cant_no_registrados: 0,
+    cant_no_registrados_uom: 0,
+    cant_total: 0,
+    cant_total_uom: 0,
+    descripcion: ""
+  };
+
+  sumaTrabajadores(relevamiento) {
+    relevamiento.cant_total =
+      relevamiento.cant_directos +
+      relevamiento.cant_subcontratados +
+      relevamiento.cant_pasantias_becas +
+      relevamiento.cant_monotributistas +
+      relevamiento.cant_subvencionados +
+      relevamiento.cant_contratos_temporarios +
+      relevamiento.cant_terciarizados +
+      relevamiento.cant_agencia +
+      relevamiento.cant_personas_discapacidad +
+      relevamiento.cant_no_registrados;
+
+    relevamiento.cant_total_uom =
+      relevamiento.cant_directos_uom +
+      relevamiento.cant_subcontratados_uom +
+      relevamiento.cant_pasantias_becas_uom +
+      relevamiento.cant_monotributistas_uom +
+      relevamiento.cant_subvencionados_uom +
+      relevamiento.cant_contratos_temporarios_uom +
+      relevamiento.cant_terciarizados_uom +
+      relevamiento.cant_agencia_uom +
+      relevamiento.cant_personas_discapacidad_uom +
+      relevamiento.cant_no_registrados_uom;
+  }
+  saveData(form) {
+    let usuario = this.authService.usuario;
+
     console.log(form.value);
+    this.relevamientoForm.descripcion = form.value.descripcion;
+    this.relevamientoForm.id_delegado = usuario.id;
+
+    var url = "http://localhost:8080/api/relevamientoInicial";
+    this.sumaTrabajadores(this.relevamientoForm);
+    this.data = this.http.post(url, this.relevamientoForm, {
+      headers: this.agregarAutorizacionHeader()
+    });
+
+    this.data.subscribe(data => {
+      swal.fire(
+        "Relevamiento inicial",
+        "¡El relevamiento fue cargado con éxito!",
+        "success"
+      );
+    });
+    this.router.navigate(["/usuarios"]);
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
+  private agregarAutorizacionHeader() {
+    let token = this.authService.token;
+    if (token != null) {
+      return this.httpHeaders.append("Authorization", "Bearer " + token);
+    }
+    return this.httpHeaders;
+  }
 }

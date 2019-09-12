@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import {InicioComponent} from '../inicio/inicio.component'
+import { InicioComponent } from '../inicio/inicio.component'
 import { AuthService } from '../services/usuarios/auth.service';
 import swal from 'sweetalert2';
 import { JsonAdaptor } from '@syncfusion/ej2-data';
@@ -14,21 +14,21 @@ import { JsonAdaptor } from '@syncfusion/ej2-data';
   styleUrls: ['./generacion-usuario.component.css']
 })
 export class GeneracionUsuarioComponent implements OnInit {
-  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
+  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
   data: Observable<any>;
-  tipoUsuarioSelect =  '';
+  tipoUsuarioSelect = '';
   repiteContrasenia = '';
   role = '1';
- tipoUsuario = '';
-  constructor(private router: Router, public http: HttpClient, public authService:AuthService) { }
+  tipoUsuario = '';
+  constructor(private router: Router, public http: HttpClient, public authService: AuthService) { }
 
-  private agregarAutorizacionHeader(){
+  private agregarAutorizacionHeader() {
     let token = this.authService.token;
-    if(token != null){
-        return this.httpHeaders.append('Authorization','Bearer ' + token);
+    if (token != null) {
+      return this.httpHeaders.append('Authorization', 'Bearer ' + token);
     }
     return this.httpHeaders;
-}
+  }
 
   ngOnInit() {
   }
@@ -70,7 +70,7 @@ export class GeneracionUsuarioComponent implements OnInit {
     ramaActividad4: "",
     check: null,
     enabled: null,
-    role : null
+    role: null
 
   }
   public saveDataUsuario(form) {
@@ -113,28 +113,36 @@ export class GeneracionUsuarioComponent implements OnInit {
     this.generacionUsuarioForm.ramaActividad4 = form.value.ramaActividad4;
     this.generacionUsuarioForm.check = form.value.check;
     this.generacionUsuarioForm.enabled = true;
-    this.generacionUsuarioForm.role =  1;
-   
-    if(this.role == 'Usuario administrador'){
+    this.generacionUsuarioForm.role = 1;
+
+    if (this.role == 'Usuario administrador') {
       this.tipoUsuario = '2';
-    }else if (this.role == 'Delegado'){
+    } else if (this.role == 'Delegado') {
       this.tipoUsuario = '1';
     }
     let params = new HttpParams().set("role", this.tipoUsuario);
-    this.data = this.http.post(url, this.generacionUsuarioForm, { headers: this.agregarAutorizacionHeader(),params: params});
+    this.data = this.http.post(url, this.generacionUsuarioForm, { headers: this.agregarAutorizacionHeader(), params: params });
     console.log(this.generacionUsuarioForm);
     this.data.subscribe(data => {
       console.log(data);
 
       console.log(form.value);
-      swal.fire('Generacion usuario','el usuario fue creado con exito',"success" );
+      swal.fire('Generacion usuario', 'el usuario fue creado con exito', "success");
     });
     console.log("holass");
-    //this.router.navigate(['/relevamientoInicial']);
+
+    if (this.tipoUsuario == '1') {
+      this.router.navigate(['/relevamientoInicial']);
+    }
+    else if (this.tipoUsuario == '2') {
+
+      this.router.navigate(['/usuarios']);
+
+    }
 
   }
 
-  public capturar(){
+  public capturar() {
     //this.tipoUsuarioSelect = this.generacionUsuarioForm.role;
   }
 
