@@ -6,6 +6,7 @@ import { InicioComponent } from '../inicio/inicio.component'
 import { AuthService } from '../services/usuarios/auth.service';
 import swal from 'sweetalert2';
 import { JsonAdaptor } from '@syncfusion/ej2-data';
+import { RelevamientoInicialService } from '../services/relevamiento-inicial.service';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class GeneracionUsuarioComponent implements OnInit {
   repiteContrasenia = '';
   role = '1';
   tipoUsuario = '';
-  constructor(private router: Router, public http: HttpClient, public authService: AuthService) { }
+  constructor(private router: Router, public http: HttpClient, public authService: AuthService,private relevamiento:RelevamientoInicialService) { }
 
   private agregarAutorizacionHeader() {
     let token = this.authService.token;
@@ -31,6 +32,7 @@ export class GeneracionUsuarioComponent implements OnInit {
   }
 
   ngOnInit() {
+    data: history.state.data
   }
 
   generacionUsuarioForm = {
@@ -119,24 +121,28 @@ export class GeneracionUsuarioComponent implements OnInit {
       this.tipoUsuario = '2';
     } else if (this.role == 'Delegado') {
       this.tipoUsuario = '1';
+      this.relevamiento.flag = 0;
+
     }
     let params = new HttpParams().set("role", this.tipoUsuario);
     this.data = this.http.post(url, this.generacionUsuarioForm, { headers: this.agregarAutorizacionHeader(), params: params });
     console.log(this.generacionUsuarioForm);
     this.data.subscribe(data => {
-      console.log(data);
+      console.log("esto devuelve al crear usuario" + data);
 
-      console.log(form.value);
       swal.fire('Generacion usuario', 'el usuario fue creado con exito', "success");
     });
     console.log("holass");
 
     if (this.tipoUsuario == '1') {
+      this.relevamiento.nombreUsuario = this.generacionUsuarioForm.nombreUsuario;
       this.router.navigate(['/relevamientoInicial']);
     }
     else if (this.tipoUsuario == '2') {
 
       this.router.navigate(['/usuarios']);
+
+     
 
     }
 

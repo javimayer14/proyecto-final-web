@@ -12,7 +12,8 @@
               <th scope="col">Nombre</th>
               <th scope="col">Apellido</th>
               <th scope="col">Nombre Usuario</th>
-              <th scope="col">Ver</th>
+              <th scope="col">Detalle</th>
+              <th scope="col">Relevamiento inicial</th>
               <th scope="col">Eliminar</th>
 
             </tr>
@@ -23,8 +24,10 @@
               <td>{{d.nombreUsuario}}</td>
               <td>{{d.apellidoUsuario}}</td>
               <td>{{d.username}}</td>
-              <td> <button (click)="traerUsuarioPorId(d.id)" type="button" class="btn btn-primary btn-lg"
-                  data-toggle="modal" data-target="#modalUsuario">ver mas</button></td>
+
+              <td> <button (click)="obtenerRelevamiento(d.id)" type="button" class="btn btn-secondary btn-lg">Relevamiento inicial</button>
+              <td> <button (click)="traerUsuarioPorId(d.id)" type="button" class="btn btn-secondary btn-lg"
+                  data-toggle="modal" data-target="#modalUsuario">detalle</button></td>
               <td> <button (click)="eliminarUsuario(d.id)" type="button" class="btn btn-danger btn-lg">eliminar</button>
               </td>
 

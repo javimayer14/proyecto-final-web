@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { AuthService } from '../services/usuarios/auth.service';
+import { RelevamientoInicialService } from '../services/relevamiento-inicial.service';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class UsuariosComponent implements OnInit {
   data: any = [];
   usuarioObtenido:any = null;
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
-  constructor(public router: Router, private http:HttpClient, private authService:AuthService) { }
+  constructor(public router: Router, private http:HttpClient, private authService:AuthService, private relevamiento:RelevamientoInicialService) { }
   
   public traerUsuarios(){
     
@@ -52,7 +53,7 @@ export class UsuariosComponent implements OnInit {
   
       data  => {
      
-      swal.fire('Usuarios','el usuario fue eliminado con exito',"success" );
+      swal.fire('Usuarios','¡el usuario fue eliminado con éxito!',"success" );
       
       console.log("Delete Request is successful ");
       this.traerUsuarios();
@@ -72,4 +73,8 @@ export class UsuariosComponent implements OnInit {
     this.traerUsuarios();
   }
 
+  obtenerRelevamiento(idUsuario){
+    this.relevamiento.obtenerRelevamiento(idUsuario);
+    this.relevamiento.flag = 1;
+  }
 }

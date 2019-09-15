@@ -1,4 +1,4 @@
-<div class="container fadeIn first">
+<div *ngIf="relevamiento.flag == 0" class="container fadeIn first">
   <h1>Usuarios</h1>
   <hr />
   <form #form="ngForm" (ngSubmit)="saveData(form)" novalidate>
@@ -265,6 +265,162 @@
           aria-label="With textarea"
           [(ngModel)]="relevamientoForm.descripcion"
         ></textarea>
+      </div>
+    </div>
+    <br />
+    <button
+      type="submit"
+      class="btn btn-primary fadeIn second"
+      [disabled]="!form.form.valid"
+    >
+      Confirmar
+    </button>
+    <br />
+  </form>
+</div>
+
+<!--si viene del boton "relevamiento"-->
+
+
+<div *ngIf="relevamiento.flag != 0" class="container fadeIn first">
+  <h1>Usuarios</h1>
+  <hr />
+  <form #form="ngForm" (ngSubmit)="saveData(form)" novalidate>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table_responsive">
+          <table class="table">
+            <table class="table">
+              <thead class="">
+                <tr>
+               
+                  <th scope="col">Tipo de contrato</th>
+                  <th scope="col">Cantidad</th>
+                  <th scope="col">Afiliados</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Directos:</th>
+                  <td> {{relevamiento.data.cant_directos}}</td>
+                  <td>
+                      {{relevamiento.data.cant_directos_uom}} 
+                  </td>
+
+                  <td>
+
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Sub contratados/as:</th>
+                  <td>{{relevamiento.data.cant_contratos_temporarios}}</td>
+                  <td>
+                    {{relevamiento.data.cant_contratos_temporarios_uom}}
+                  </td>
+
+                  <td>
+   
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Pasantia/Beca:</th>
+                  <td>{{relevamiento.data.cant_pasantias_becas}}</td>
+                  <td>
+                    {{relevamiento.data.cant_pasantias_becas_uom}}
+                  </td>
+
+                  <td>
+      
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Monotributistas:</th>
+                  <td>{{relevamiento.data.cant_monotributistas}}</td>
+                  <td>
+                    {{relevamiento.data.cant_monotributistas_uom}}
+                  </td>
+
+                  <td>
+             
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Subvencionados/as:</th>
+                  <td>{{relevamiento.data.cant_subvencionados}}</td>
+                  <td>
+                    {{relevamiento.data.cant_subvencionados_uom}}
+                  </td>
+
+                  <td>
+         
+                  </td>
+                </tr>
+           
+                <tr>
+                  <th scope="row">Terciarizados/as:</th>
+                  <td>{{relevamiento.data.cant_terciarizados}}</td>
+                  <td>
+                    {{relevamiento.data.cant_terciarizados_uom}}
+                  </td>
+
+                  <td>
+              
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Por agencia:</th>
+                  <td>{{relevamiento.data.cant_agencia}}</td>
+                  <td>
+                    {{relevamiento.data.cant_agencia_uom}}
+                  </td>
+
+                  <td>
+                
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Personas con discapacidad:</th>
+                  <td>{{relevamiento.data.cant_personas_discapacidad}}</td>
+                  <td>
+                    {{relevamiento.data.cant_personas_discapacidad_uom}}
+                  </td>
+
+                  <td>
+            
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">No registrado:</th>
+                  <td>{{relevamiento.data.cant_no_registrados}}</td>
+                  <td>
+                    {{relevamiento.data.cant_no_registrados_uom}}
+                  </td>
+
+                  <td>
+                
+                  </td>
+                </tr>
+            
+               
+              </tbody>
+            </table>
+          </table>
+          
+          <h4>Trabajadores totales :  {{relevamiento.data.cant_total}}</h4>
+          <h4>Trabajadores totales afiliados a la UOM:  {{relevamiento.data.cant_total_uom}}</h4>
+          <br>
+        </div>
+      </div>
+     
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Observaciones</span>
+        </div>
+        <textarea
+          name="descripcion"
+          class="form-control"
+          aria-label="With textarea"
+        >{{relevamiento.data.descripcion}}</textarea>
       </div>
     </div>
     <br />

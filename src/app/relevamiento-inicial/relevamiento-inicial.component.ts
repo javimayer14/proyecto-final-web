@@ -3,55 +3,74 @@ import { Observable } from "rxjs";
 import { AuthService } from "../services/usuarios/auth.service";
 import swal from "sweetalert2";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
-import { Router } from "@angular/router";
+import { Router, NavigationStart } from "@angular/router";
+import { RelevamientoInicialService } from '../services/relevamiento-inicial.service';
+import { Location } from '@angular/common';
+import { RoutesRecognized } from '@angular/router';
+import { filter, pairwise } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+
+
 
 @Component({
   selector: "app-relevamiento-inicial",
   templateUrl: "./relevamiento-inicial.component.html",
-  styleUrls: ["./relevamiento-inicial.component.css"]
+  styleUrls: ["./relevamiento-inicial.component.css"],
+  
 })
 export class RelevamientoInicialComponent implements OnInit {
   trabajadores: any[] = [];
   data: Observable<any>;
+  relevamientoForm:any={}
+  previousUrl: string;
+  idUser:any ;
+  dataNueva:any= {};
+  idFinal: number;
+
   private httpHeaders = new HttpHeaders({ "Content-Type": "application/json" });
 
   constructor(
     public http: HttpClient,
     public authService: AuthService,
-    public router: Router
+    public router: Router,
+    private relevamiento:RelevamientoInicialService,
+
+
   ) {
-    this.trabajadores = [1, 2];
+
+
+    this.relevamientoForm = {
+      id_delegado: 0,
+      cant_directos: 0,
+      cant_directos_uom: 0,
+      cant_subcontratados: 0,
+      cant_subcontratados_uom: 0,
+      cant_pasantias_becas: 0,
+      cant_pasantias_becas_uom: 0,
+      cant_monotributistas: 0,
+      cant_monotributistas_uom: 0,
+      cant_subvencionados: 0,
+      cant_subvencionados_uom: 0,
+      cant_contratos_temporarios: 0,
+      cant_contratos_temporarios_uom: 0,
+      cant_terciarizados: 0,
+      cant_terciarizados_uom: 0,
+      cant_agencia: 0,
+      cant_agencia_uom: 0,
+      cant_personas_discapacidad: 0,
+      cant_personas_discapacidad_uom: 0,
+      cant_no_registrados: 0,
+      cant_no_registrados_uom: 0,
+      cant_total: 0,
+      cant_total_uom: 0,
+      descripcion: ""
+    };
   }
   public agregarTrabajador() {
     this.trabajadores.push(1);
   }
 
-  relevamientoForm = {
-    id_delegado: 0,
-    cant_directos: 0,
-    cant_directos_uom: 0,
-    cant_subcontratados: 0,
-    cant_subcontratados_uom: 0,
-    cant_pasantias_becas: 0,
-    cant_pasantias_becas_uom: 0,
-    cant_monotributistas: 0,
-    cant_monotributistas_uom: 0,
-    cant_subvencionados: 0,
-    cant_subvencionados_uom: 0,
-    cant_contratos_temporarios: 0,
-    cant_contratos_temporarios_uom: 0,
-    cant_terciarizados: 0,
-    cant_terciarizados_uom: 0,
-    cant_agencia: 0,
-    cant_agencia_uom: 0,
-    cant_personas_discapacidad: 0,
-    cant_personas_discapacidad_uom: 0,
-    cant_no_registrados: 0,
-    cant_no_registrados_uom: 0,
-    cant_total: 0,
-    cant_total_uom: 0,
-    descripcion: ""
-  };
+
 
   sumaTrabajadores(relevamiento) {
     relevamiento.cant_total =
@@ -78,12 +97,41 @@ export class RelevamientoInicialComponent implements OnInit {
       relevamiento.cant_personas_discapacidad_uom +
       relevamiento.cant_no_registrados_uom;
   }
+
+  obtenerId(){
+    let params = new HttpParams().set("nombreUsuario", this.relevamiento.nombreUsuario);
+    console.log("ESTOS SON LOS PARAMETROS " + params);
+    return this.http.get('http://localhost:8080/api/usuarios/nombreusuario', {headers: this.agregarAutorizacionHeader(),params: params}).subscribe(
+  
+      data  => {
+       
+     this.dataNueva=data;
+     this.relevamiento.idUser = parseInt(this.dataNueva.id)
+      console.log("AVERGA ",parseInt(this.dataNueva.id));
+      var id = parseInt(this.dataNueva.id) 
+      environment.id = this.dataNueva.id;
+      localStorage.setItem('id',  id.toString());
+      this.idFinal = parseInt(this.dataNueva.id);
+      this.relevamiento.idUser = parseInt(this.dataNueva.id);
+
+   
+      
+      });
+  }
   saveData(form) {
     let usuario = this.authService.usuario;
 
-    console.log(form.value);
+
+    this.obtenerId();
+    
+   
+
+    this.agregarTrabajador();
     this.relevamientoForm.descripcion = form.value.descripcion;
-    this.relevamientoForm.id_delegado = usuario.id;
+    this.relevamientoForm.id_delegado = this.relevamiento.idUser  ;
+
+
+console.log("ZZZZZZZZZZZZZZZZ",this.relevamiento.idUser);
 
     var url = "http://localhost:8080/api/relevamientoInicial";
     this.sumaTrabajadores(this.relevamientoForm);
@@ -99,9 +147,12 @@ export class RelevamientoInicialComponent implements OnInit {
       );
     });
     this.router.navigate(["/usuarios"]);
+  
   }
-
-  ngOnInit() {}
+ 
+  ngOnInit() { 
+   
+    }
 
   private agregarAutorizacionHeader() {
     let token = this.authService.token;
@@ -110,4 +161,5 @@ export class RelevamientoInicialComponent implements OnInit {
     }
     return this.httpHeaders;
   }
+
 }

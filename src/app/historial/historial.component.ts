@@ -30,7 +30,7 @@ export class HistorialComponent implements OnInit {
   datosBusqueda = {};
   buscar: string = "";
   dataExel: any = [];
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService, private router:Router) {}
 
   ngOnInit() {}
 
@@ -64,6 +64,9 @@ export class HistorialComponent implements OnInit {
       })
       .subscribe(data => {
         console.log("PUT Request is successful ", data);
+        swal.fire('Eliminar','¡se eliminó el registro con éxito!', "success" );
+        this.buscarHistorial();
+
       });
   }
 

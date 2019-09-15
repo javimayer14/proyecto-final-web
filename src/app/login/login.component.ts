@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
       this.authService.guardarUsuario(response.access_token);
       this.authService.guardarToken(response.access_token);
       let usuario = this.authService.usuario;
-      swal.fire('Login', 'Bienvenido, has iniciado sesion con exito !' , "success");
+      swal.fire('Login', 'Bienvenido, ¡has iniciado sesión con éxito!' , "success");
     }, err =>{
       if(err.status == 400){
         swal.fire('Error Login','Username o Password incorrecto',"error");

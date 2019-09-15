@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>historial</h1>
+  <h1>Historial</h1>
   <br />
 
   <div class="row">
@@ -12,7 +12,7 @@
           (keyup.enter)="buscarHistorial()"
           type="text"
           class="form-control"
-          placeholder="Buscar historial de delegado"
+          placeholder="Buscar historial del delegado"
         />
       </div>
     </div>
@@ -36,6 +36,8 @@
         <p class="card-text">Motivo: {{ reg[1] }}</p>
         <p class="card-text">Medida: {{ reg[8] }}</p>
       </div>
+      <button type="button" (click)="eliminarRegistro('CONF',reg[7],reg[9],reg[6])" class="btn btn-danger">Eliminar</button>
+
       <div class="card-footer">
         <small class="text-muted">Fecha de suceso: {{ reg[9] }}</small>
       </div>
@@ -56,6 +58,7 @@
         <p class="card-text">{{ reg[4] }}</p>
         <p class="card-text">Tipo de variacion: {{ reg[5] }}</p>
       </div>
+      <button type="button" (click)="eliminarRegistro('VAR',reg[7],reg[9],reg[6])" class="btn btn-danger">Eliminar</button>
       <div class="card-footer">
         <small class="text-muted">Fecha de suceso: {{ reg[9] }}</small>
       </div>
@@ -69,11 +72,12 @@
       />
       <div class="card-body">
         <h5 class="card-title">Cambio laboral</h5>
-
         <hr />
         <p class="card-text">{{ reg[6] }}</p>
         <p class="card-text">Motivo: {{ reg[1] }}</p>
       </div>
+      <button type="button" (click)="eliminarRegistro('CAMB',reg[7],reg[9],reg[6])" class="btn btn-danger">Eliminar</button>
+
       <div class="card-footer">
         <small class="text-muted">Fecha de suceso: {{ reg[9] }}</small>
       </div>
