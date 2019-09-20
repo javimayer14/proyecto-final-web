@@ -12,19 +12,19 @@ import { HistorialComponent } from './historial/historial.component';
 const routes: Routes = [
   {
   path: 'inicio',
-  component: InicioComponent
+  component: InicioComponent, canActivate:[AuthGuard]
   },
   {
     path: 'generacionUsuario',
-    component: GeneracionUsuarioComponent
+    component: GeneracionUsuarioComponent , canActivate:[AuthGuard]
   },
   {
     path: 'relevamientoInicial',
-    component: RelevamientoInicialComponent
+    component: RelevamientoInicialComponent , canActivate:[AuthGuard]
   },
   {
     path: 'exelPrueba',
-    component: GenerarExelComponent
+    component: GenerarExelComponent, canActivate:[AuthGuard]
   },
   {
     path: 'login',
@@ -32,11 +32,11 @@ const routes: Routes = [
   },
   {
     path: 'usuarios',
-    component: UsuariosComponent
+    component: UsuariosComponent, canActivate:[AuthGuard]
   },
   {
     path: 'historial',
-    component: HistorialComponent,
+    component: HistorialComponent, canActivate:[AuthGuard]
   }
 ];
 

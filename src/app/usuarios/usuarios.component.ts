@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { AuthService } from '../services/usuarios/auth.service';
 import { RelevamientoInicialService } from '../services/relevamiento-inicial.service';
+import { ServerUrlService } from '../services/server-url.service';
 
 
 @Component({
@@ -16,11 +17,11 @@ export class UsuariosComponent implements OnInit {
   data: any = [];
   usuarioObtenido:any = null;
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
-  constructor(public router: Router, private http:HttpClient, private authService:AuthService, private relevamiento:RelevamientoInicialService) { }
+  constructor(public router: Router, private http:HttpClient, private authService:AuthService, private relevamiento:RelevamientoInicialService, private serverUrl:ServerUrlService) { }
   
   public traerUsuarios(){
     
-    return this.http.get('http://localhost:8080/api/usuarios', {headers: this.agregarAutorizacionHeader()}).subscribe(
+    return this.http.get(this.serverUrl.serverUrl + '/api/usuarios', {headers: this.agregarAutorizacionHeader()}).subscribe(
   
       data  => {
       this.datosBusqueda = data;
@@ -37,7 +38,7 @@ export class UsuariosComponent implements OnInit {
     
     let params = new HttpParams().set("id",id) //Create new HttpParams
     console.log("ESTOS SON LOS PARAMETROS " + params);
-    return this.http.get(`${'http://localhost:8080/api/usuarios'}/${id}`,{headers: this.agregarAutorizacionHeader()}).subscribe(
+    return this.http.get(`${this.serverUrl.serverUrl +'/api/usuarios'}/${id}`,{headers: this.agregarAutorizacionHeader()}).subscribe(
   
       data  => {
       this.usuarioObtenido = data;
@@ -49,7 +50,7 @@ export class UsuariosComponent implements OnInit {
     
     let params = new HttpParams().set("id",id) //Create new HttpParams
     console.log("ESTOS SON LOS PARAMETROS " + params);
-    return this.http.delete(`${'http://localhost:8080/api/usuarios'}/${id}`,{headers: this.agregarAutorizacionHeader(),params: params}).subscribe(
+    return this.http.delete(`${this.serverUrl.serverUrl +'/api/usuarios'}/${id}`,{headers: this.agregarAutorizacionHeader(),params: params}).subscribe(
   
       data  => {
      
@@ -78,3 +79,4 @@ export class UsuariosComponent implements OnInit {
     this.relevamiento.flag = 1;
   }
 }
+ 

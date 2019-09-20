@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { AuthService } from '../services/usuarios/auth.service';
+import { ServerUrlService } from './server-url.service';
 
 
 @Injectable({
@@ -14,11 +15,13 @@ export class RelevamientoInicialService  {
   data:any= []  ;
   nombreUsuario ="";
   idUser:number;
-   
-  constructor(public router: Router, private http:HttpClient, private authService:AuthService)  { 
-   
-   
+  dataNueva:any= {};
 
+  constructor(public router: Router, private http:HttpClient, private authService:AuthService, private serverUrl:ServerUrlService)  { 
+   
+  }
+  changeIdUser(id){
+    this.idUser = id;
   }
 
   flag:number = 0;
@@ -31,11 +34,12 @@ export class RelevamientoInicialService  {
   }
 
 
+  
 
   obtenerRelevamiento(idUsuario){
     let params = new HttpParams().set("idUser",idUsuario)
     return this.http
-    .get("http://localhost:8080/api/relevamientoInicialUsuario", {
+    .get(this.serverUrl.serverUrl + "/api/relevamientoInicialUsuario", {
       headers: this.agregarAutorizacionHeader(), params: params 
     })
     .subscribe(data => {

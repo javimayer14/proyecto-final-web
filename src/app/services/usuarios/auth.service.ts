@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {  HttpClient, HttpHeaders } from '@angular/common/http';
 import { Usuario } from 'src/app/clases/usuario';
+import { ServerUrlService } from '../server-url.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { Usuario } from 'src/app/clases/usuario';
 export class AuthService {
   private _usuario:Usuario;
   private _token:String;
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private serverUrl:ServerUrlService) { }
 
   public get usuario(): Usuario{
     if(this._usuario != null){
@@ -33,7 +34,7 @@ export class AuthService {
   }
 
   login(usuario:Usuario):Observable<any>{
-    const urlEndpoint= "http://localhost:8080/oauth/token";
+    const urlEndpoint= this.serverUrl.serverUrl + "/oauth/token";
     const credenciales = btoa('angularApp' + ':' + '12345');
 
     const httpHeaders = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded',

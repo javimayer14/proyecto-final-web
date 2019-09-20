@@ -7,6 +7,7 @@ import { AuthService } from '../services/usuarios/auth.service';
 import swal from 'sweetalert2';
 import { JsonAdaptor } from '@syncfusion/ej2-data';
 import { RelevamientoInicialService } from '../services/relevamiento-inicial.service';
+import { ServerUrlService } from '../services/server-url.service';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class GeneracionUsuarioComponent implements OnInit {
   repiteContrasenia = '';
   role = '1';
   tipoUsuario = '';
-  constructor(private router: Router, public http: HttpClient, public authService: AuthService,private relevamiento:RelevamientoInicialService) { }
+
+  constructor(private router: Router, public http: HttpClient, public authService: AuthService,private relevamiento:RelevamientoInicialService, private serverUrl:ServerUrlService) { }
 
   private agregarAutorizacionHeader() {
     let token = this.authService.token;
@@ -77,7 +79,7 @@ export class GeneracionUsuarioComponent implements OnInit {
   }
   public saveDataUsuario(form) {
 
-    var url = "http://localhost:8080/api/usuarios"
+    var url = this.serverUrl.serverUrl +"/api/usuarios"
     let postData = new FormData();
     this.generacionUsuarioForm.username = form.value.usuario;
     this.generacionUsuarioForm.password = form.value.contrasenia;

@@ -16,6 +16,7 @@ import { ManejoErroresService } from '../services/manejo-errores.service';
 import { throwError } from '@syncfusion/ej2-base';
 import swal from 'sweetalert2';
 import { AuthService } from '../services/usuarios/auth.service';
+import { ServerUrlService } from '../services/server-url.service';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
@@ -39,7 +40,7 @@ export class InicioComponent {
   private urlEndPoint: String = 'http://localhost:8080/api/variaciones/busqueda';
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
     
-  constructor(public router: Router, private http:HttpClient, private errores:ManejoErroresService, private authService:AuthService) {
+  constructor(public router: Router, private http:HttpClient, private errores:ManejoErroresService, private authService:AuthService, private serverUrl:ServerUrlService) {
   
   }
 
@@ -166,7 +167,7 @@ public validacionParametros(form){
   let params = new HttpParams().set("tipoBusqueda",this.buscadorForm.tipoBusqueda).set("descripcionBusqueda", this.buscadorForm.descripcionBusqueda).set("fechaDesde", fechaFormatoCorrectoDesde.toString()).set("fechaHasta", fechaFormatoCorrectoHasta.toString()).set("tipoVariacion",this.buscadorForm.tipoVariacion); //Create new HttpParams
   console.log("ESTOS SON LOS PARAMETROS " + params);
   
-  return this.http.get('http://localhost:8080/api/variaciones/busqueda', {headers: this.agregarAutorizacionHeader(),params: params}).subscribe(
+  return this.http.get(this.serverUrl.serverUrl + '/api/variaciones/busqueda', {headers: this.agregarAutorizacionHeader(),params: params}).subscribe(
 
     data  => {
     this.datosBusqueda = data;
@@ -219,7 +220,7 @@ public validacionParametros(form){
   
   let params = new HttpParams().set("tipoBusqueda",this.buscadorForm.tipoBusqueda).set("descripcionBusqueda", this.buscadorForm.descripcionBusqueda).set("fechaDesde", fechaFormatoCorrectoDesde.toString()).set("fechaHasta", fechaFormatoCorrectoHasta.toString()); //Create new HttpParams
   console.log("ESTOS SON LOS PARAMETROS " + params); 
-  return this.http.get('http://localhost:8080/api/conflictosLaborales/busqueda', {headers: this.agregarAutorizacionHeader(),params: params}).subscribe(
+  return this.http.get(this.serverUrl.serverUrl + '/api/conflictosLaborales/busqueda', {headers: this.agregarAutorizacionHeader(),params: params}).subscribe(
 
     data  => {
     this.data = data;
@@ -260,7 +261,7 @@ public validacionParametros(form){
   let params = new HttpParams().set("tipoBusqueda",this.buscadorForm.tipoBusqueda).set("descripcionBusqueda", this.buscadorForm.descripcionBusqueda).set("fechaDesde", fechaFormatoCorrectoDesde.toString()).set("fechaHasta", fechaFormatoCorrectoHasta.toString()); //Create new HttpParams
   console.log("ESTOS SON LOS PARAMETROS " + params);
   console.log(form.value);
-  return this.http.get('http://localhost:8080/api/cambioCondiciones/busqueda', {headers: this.agregarAutorizacionHeader(),params: params}).subscribe(
+  return this.http.get(this.serverUrl.serverUrl + '/api/cambioCondiciones/busqueda', {headers: this.agregarAutorizacionHeader(),params: params}).subscribe(
 
     data  => {
     this.datosBusqueda = data;

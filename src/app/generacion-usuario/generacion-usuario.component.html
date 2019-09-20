@@ -4,7 +4,7 @@
     <div class="form-row">
       <div class="form-group col-md-12">
         <label for="inputEmail4">Usuario</label>
-        <input  type="text"  class="form-control" id="inputEmail4" placeholder="Usuario" name ="usuario" [(ngModel)]="generacionUsuarioForm.usuario" required minlength="4" #usuario="ngModel">
+        <input   type="text"  class="form-control" id="inputEmail4" placeholder="Usuario" name ="usuario" [(ngModel)]="generacionUsuarioForm.usuario" required minlength="4" #usuario="ngModel">
         <div class="alert alert-danger" *ngIf="usuario.invalid && (usuario.dirty || usuario.touched)">
           <div *ngIf="usuario.errors.required">
             Usuario es requerido

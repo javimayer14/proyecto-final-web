@@ -15,6 +15,7 @@ import { throwError } from "@syncfusion/ej2-base";
 import swal from "sweetalert2";
 import { AuthService } from "../services/usuarios/auth.service";
 import { logging } from "protractor";
+import { ServerUrlService } from '../services/server-url.service';
 
 const EXCEL_TYPE =
   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
@@ -30,13 +31,13 @@ export class HistorialComponent implements OnInit {
   datosBusqueda = {};
   buscar: string = "";
   dataExel: any = [];
-  constructor(private http: HttpClient, private authService: AuthService, private router:Router) {}
+  constructor(private http: HttpClient, private authService: AuthService, private router:Router, private urlServer:ServerUrlService) {}
 
   ngOnInit() {}
 
   public prueba() {
     return this.http
-      .get("http://localhost:8080/api/usuarios/historial", {
+      .get(this.urlServer.serverUrl + "/usuarios/historial", {
         headers: this.agregarAutorizacionHeader()
       })
       .subscribe(data => {
@@ -58,7 +59,7 @@ export class HistorialComponent implements OnInit {
     console.log("ESTOS SON LOS PARAMETROS " + params);
 
     return this.http
-      .get("http://localhost:8080/api/usuarios/historial/delete", {
+      .get(this.urlServer.serverUrl + "/api/usuarios/historial/delete", {
         headers: this.agregarAutorizacionHeader(),
         params: params
       })
@@ -85,7 +86,7 @@ export class HistorialComponent implements OnInit {
       console.log("ESTOS SON LOS PARAMETROS " + params);
 
       return this.http
-        .get("http://localhost:8080/api/usuarios/historial", {
+        .get(this.urlServer.serverUrl +"/api/usuarios/historial", {
           headers: this.agregarAutorizacionHeader(),
           params: params
         })

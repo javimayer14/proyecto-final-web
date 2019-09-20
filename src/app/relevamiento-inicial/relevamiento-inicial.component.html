@@ -1,10 +1,12 @@
 <div *ngIf="relevamiento.flag == 0" class="container fadeIn first">
   <h1>Usuarios</h1>
   <hr />
+  
   <form #form="ngForm" (ngSubmit)="saveData(form)" novalidate>
     <div class="row">
       <div class="col-md-12">
         <div class="table_responsive">
+       
           <table class="table">
             <table class="table">
               <thead class="">
@@ -226,7 +228,7 @@
                       "
                     />
                   </td>
-                </tr>
+                </tr> 
                 <tr>
                   <th scope="row">No registrado:</th>
                   <td></td>
@@ -257,22 +259,33 @@
       </div>
       <div class="input-group">
         <div class="input-group-prepend">
-          <span class="input-group-text">Observaciones</span>
+          <span class="input-group-text">Observaciones (obligatorio)</span>
         </div>
         <textarea
+
           name="descripcion"
+          (focus)="obtenerId()"
+
           class="form-control"
           aria-label="With textarea"
           [(ngModel)]="relevamientoForm.descripcion"
+          #desc="ngModel"
+          required
         ></textarea>
+         <div class="alert alert-danger" *ngIf="desc.invalid && (desc.dirty || desc.touched)">
+            <div *ngIf="desc.errors.required">
+                Descripcion es requerido
+              </div>
+
+         </div>
       </div>
     </div>
+   
     <br />
     <button
       type="submit"
       class="btn btn-primary fadeIn second"
-      [disabled]="!form.form.valid"
-    >
+      [disabled]="!form.form.valid"    >
       Confirmar
     </button>
     <br />
@@ -414,7 +427,7 @@
      
       <div class="input-group">
         <div class="input-group-prepend">
-          <span class="input-group-text">Observaciones</span>
+          <span class="input-group-text">Observaciones </span>
         </div>
         <textarea
           name="descripcion"
@@ -423,14 +436,10 @@
         >{{relevamiento.data.descripcion}}</textarea>
       </div>
     </div>
+
     <br />
-    <button
-      type="submit"
-      class="btn btn-primary fadeIn second"
-      [disabled]="!form.form.valid"
-    >
-      Confirmar
-    </button>
+
+    
     <br />
   </form>
 </div>

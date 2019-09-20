@@ -15,6 +15,7 @@ import { GenerarExelComponent } from './generar-exel/generar-exel.component';
 import { LoginComponent } from './login/login.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { HistorialComponent } from './historial/historial.component';
+import { RelevamientoInicialService } from './services/relevamiento-inicial.service';
 
 
 @NgModule({
@@ -38,7 +39,9 @@ import { HistorialComponent } from './historial/historial.component';
     DatePickerModule
     
   ],
-  providers: [],
+  providers: [
+    RelevamientoInicialService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

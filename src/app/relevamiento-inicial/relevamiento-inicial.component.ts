@@ -9,6 +9,7 @@ import { Location } from '@angular/common';
 import { RoutesRecognized } from '@angular/router';
 import { filter, pairwise } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { ServerUrlService } from '../services/server-url.service';
 
 
 
@@ -34,6 +35,7 @@ export class RelevamientoInicialComponent implements OnInit {
     public authService: AuthService,
     public router: Router,
     private relevamiento:RelevamientoInicialService,
+    private serverUrl:ServerUrlService
 
 
   ) {
@@ -98,32 +100,11 @@ export class RelevamientoInicialComponent implements OnInit {
       relevamiento.cant_no_registrados_uom;
   }
 
-  obtenerId(){
-    let params = new HttpParams().set("nombreUsuario", this.relevamiento.nombreUsuario);
-    console.log("ESTOS SON LOS PARAMETROS " + params);
-    return this.http.get('http://localhost:8080/api/usuarios/nombreusuario', {headers: this.agregarAutorizacionHeader(),params: params}).subscribe(
   
-      data  => {
-       
-     this.dataNueva=data;
-     this.relevamiento.idUser = parseInt(this.dataNueva.id)
-      console.log("AVERGA ",parseInt(this.dataNueva.id));
-      var id = parseInt(this.dataNueva.id) 
-      environment.id = this.dataNueva.id;
-      localStorage.setItem('id',  id.toString());
-      this.idFinal = parseInt(this.dataNueva.id);
-      this.relevamiento.idUser = parseInt(this.dataNueva.id);
-
-   
-      
-      });
-  }
   saveData(form) {
-    let usuario = this.authService.usuario;
+        this.obtenerId();
 
-
-    this.obtenerId();
-    
+    let usuario = this.authService.usuario;    
    
 
     this.agregarTrabajador();
@@ -133,7 +114,7 @@ export class RelevamientoInicialComponent implements OnInit {
 
 console.log("ZZZZZZZZZZZZZZZZ",this.relevamiento.idUser);
 
-    var url = "http://localhost:8080/api/relevamientoInicial";
+    var url = this.serverUrl.serverUrl + "/api/relevamientoInicial";
     this.sumaTrabajadores(this.relevamientoForm);
     this.data = this.http.post(url, this.relevamientoForm, {
       headers: this.agregarAutorizacionHeader()
@@ -151,7 +132,6 @@ console.log("ZZZZZZZZZZZZZZZZ",this.relevamiento.idUser);
   }
  
   ngOnInit() { 
-   
     }
 
   private agregarAutorizacionHeader() {
@@ -160,6 +140,21 @@ console.log("ZZZZZZZZZZZZZZZZ",this.relevamiento.idUser);
       return this.httpHeaders.append("Authorization", "Bearer " + token);
     }
     return this.httpHeaders;
+  }
+
+  obtenerId(){
+    let params = new HttpParams().set("nombreUsuario", this.relevamiento.nombreUsuario);
+    console.log("p-a-r-a-m-e-t-r-o-s" + params);
+    return this.http.get(this.serverUrl.serverUrl + '/api/usuarios/nombreusuario', {headers: this.agregarAutorizacionHeader(),params: params}).subscribe(
+  
+      data  => {
+       
+     this.dataNueva=data;
+     this.relevamiento.idUser = parseInt(this.dataNueva.id)
+      console.log("lalalala ",this.dataNueva);
+      
+      });
+      
   }
 
 }
