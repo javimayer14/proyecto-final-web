@@ -87,8 +87,8 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let d of data">
-                    <th scope="row">1</th>
+                  <tr *ngFor="let d of data; let i = index">
+                    <th scope="row">{{i+1}}</th>
                     <td>{{d[0]}}</td>
                     <td>{{d[1]}}</td>
                     <td>{{d[3]}}</td>
@@ -167,8 +167,8 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let d of data">
-                    <th scope="row">1</th>
+                  <tr *ngFor="let d of data; let i = index">
+                    <th scope="row">{{i+1}}</th>
                     <td>{{d[0]}}</td>
                     <td>{{d[1]}}</td>
                     <td>{{d[2]}}</td>
@@ -242,8 +242,8 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let d of datosBusqueda">
-                    <th scope="row">1</th>
+                  <tr *ngFor="let d of datosBusqueda; let i = index">
+                    <th scope="row">{{i+1}}</th>
                     <td>{{d[0]}}</td>
                     <td>{{d[1]}}</td>
                     <td>{{d[3]}}</td>

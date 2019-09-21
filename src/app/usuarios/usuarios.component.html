@@ -12,15 +12,15 @@
               <th scope="col">Nombre</th>
               <th scope="col">Apellido</th>
               <th scope="col">Nombre Usuario</th>
-              <th scope="col">Detalle</th>
               <th scope="col">Relevamiento inicial</th>
+              <th scope="col">Datos del usuario</th>
               <th scope="col">Eliminar</th>
 
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let d of data">
-              <th scope="row">1</th>
+            <tr *ngFor="let d of data;  let i = index">
+              <th scope="row">{{i+ 1}}</th>
               <td>{{d.nombreUsuario}}</td>
               <td>{{d.apellidoUsuario}}</td>
               <td>{{d.username}}</td>

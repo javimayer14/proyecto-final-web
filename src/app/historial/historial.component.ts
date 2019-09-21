@@ -31,9 +31,9 @@ export class HistorialComponent implements OnInit {
   datosBusqueda = {};
   buscar: string = "";
   dataExel: any = [];
-  constructor(private http: HttpClient, private authService: AuthService, private router:Router, private urlServer:ServerUrlService) {}
+  constructor(private http: HttpClient, private authService: AuthService, private router: Router, private urlServer: ServerUrlService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   public prueba() {
     return this.http
@@ -46,29 +46,52 @@ export class HistorialComponent implements OnInit {
   }
 
   eliminarRegistro(
+
     tipo: string,
     idUsuario: string,
     fecha: string,
     desc: string
   ) {
-    let params = new HttpParams()
-      .set("tipo", tipo)
-      .set("idUsuario", idUsuario)
-      .set("fecha", fecha)
-      .set("desc", desc); //Create new HttpParams
-    console.log("ESTOS SON LOS PARAMETROS " + params);
 
-    return this.http
-      .get(this.urlServer.serverUrl + "/api/usuarios/historial/delete", {
-        headers: this.agregarAutorizacionHeader(),
-        params: params
-      })
-      .subscribe(data => {
-        console.log("PUT Request is successful ", data);
-        swal.fire('Eliminar','¡se eliminó el registro con éxito!', "success" );
-        this.buscarHistorial();
+    swal.fire({
+      title: '¿Estas seguro?',
+      text: "No se podrá revertir el cambio",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Si, eliminar!'
+    }).then((result) => {
+      if (result.value) {
+        let params = new HttpParams()
+          .set("tipo", tipo)
+          .set("idUsuario", idUsuario)
+          .set("fecha", fecha)
+          .set("desc", desc); //Create new HttpParams
+        console.log("ESTOS SON LOS PARAMETROS " + params);
 
-      });
+        return this.http
+          .get(this.urlServer.serverUrl + "/api/usuarios/historial/delete", {
+            headers: this.agregarAutorizacionHeader(),
+            params: params
+          })
+          .subscribe(data => {
+            console.log("PUT Request is successful ", data);
+
+            this.buscarHistorial();
+            swal.fire(
+              'Eliminado',
+              '¡se eliminó el registro con éxito!',
+              'success'
+            )
+          });
+     
+      }
+    })
+
+
+
   }
 
   private agregarAutorizacionHeader() {
@@ -86,7 +109,7 @@ export class HistorialComponent implements OnInit {
       console.log("ESTOS SON LOS PARAMETROS " + params);
 
       return this.http
-        .get(this.urlServer.serverUrl +"/api/usuarios/historial", {
+        .get(this.urlServer.serverUrl + "/api/usuarios/historial", {
           headers: this.agregarAutorizacionHeader(),
           params: params
         })
