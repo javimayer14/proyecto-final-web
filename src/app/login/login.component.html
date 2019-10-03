@@ -1,5 +1,3 @@
-
-
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -15,10 +13,12 @@
     </div>
 
     <!-- Login Form -->
-    <form  method="POST">
-      <input [(ngModel)]="usuario.username" name="username" id="username" type="text"  class="fadeIn second"  placeholder="usuario" >
-      <input [(ngModel)]="usuario.password" name="password" id="password" type="password" class="fadeIn third" placeholder="password">
-      <input  (click)="logIn();" type="submit" class="fadeIn fourth" value="Log In">
+    <form method="POST">
+      <input [(ngModel)]="usuario.username" name="username" id="username" type="text" class="fadeIn second"
+        placeholder="usuario">
+      <input [(ngModel)]="usuario.password" name="password" id="password" type="password" class="fadeIn third"
+        placeholder="password">
+      <input (click)="logIn();" type="submit" class="fadeIn fourth" value="Log In">
     </form>
 
     <!-- Remind Passowrd -->

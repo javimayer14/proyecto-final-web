@@ -17,15 +17,15 @@ import { ServerUrlService } from '../services/server-url.service';
   selector: "app-relevamiento-inicial",
   templateUrl: "./relevamiento-inicial.component.html",
   styleUrls: ["./relevamiento-inicial.component.css"],
-  
+
 })
 export class RelevamientoInicialComponent implements OnInit {
   trabajadores: any[] = [];
   data: Observable<any>;
-  relevamientoForm:any={}
+  relevamientoForm: any = {}
   previousUrl: string;
-  idUser:any ;
-  dataNueva:any= {};
+  idUser: any;
+  dataNueva: any = {};
   idFinal: number;
 
   private httpHeaders = new HttpHeaders({ "Content-Type": "application/json" });
@@ -34,8 +34,8 @@ export class RelevamientoInicialComponent implements OnInit {
     public http: HttpClient,
     public authService: AuthService,
     public router: Router,
-    private relevamiento:RelevamientoInicialService,
-    private serverUrl:ServerUrlService
+    private relevamiento: RelevamientoInicialService,
+    private serverUrl: ServerUrlService
 
 
   ) {
@@ -100,19 +100,14 @@ export class RelevamientoInicialComponent implements OnInit {
       relevamiento.cant_no_registrados_uom;
   }
 
-  
+
   saveData(form) {
-        this.obtenerId();
+    this.obtenerId();
 
-    let usuario = this.authService.usuario;    
-   
-
+    let usuario = this.authService.usuario;
     this.agregarTrabajador();
     this.relevamientoForm.descripcion = form.value.descripcion;
-    this.relevamientoForm.id_delegado = this.relevamiento.idUser  ;
-
-
-console.log("ZZZZZZZZZZZZZZZZ",this.relevamiento.idUser);
+    this.relevamientoForm.id_delegado = this.relevamiento.idUser;
 
     var url = this.serverUrl.serverUrl + "/api/relevamientoInicial";
     this.sumaTrabajadores(this.relevamientoForm);
@@ -128,11 +123,11 @@ console.log("ZZZZZZZZZZZZZZZZ",this.relevamiento.idUser);
       );
     });
     this.router.navigate(["/usuarios"]);
-  
+
   }
- 
-  ngOnInit() { 
-    }
+
+  ngOnInit() {
+  }
 
   private agregarAutorizacionHeader() {
     let token = this.authService.token;
@@ -142,19 +137,17 @@ console.log("ZZZZZZZZZZZZZZZZ",this.relevamiento.idUser);
     return this.httpHeaders;
   }
 
-  obtenerId(){
+  obtenerId() {
     let params = new HttpParams().set("nombreUsuario", this.relevamiento.nombreUsuario);
-    console.log("p-a-r-a-m-e-t-r-o-s" + params);
-    return this.http.get(this.serverUrl.serverUrl + '/api/usuarios/nombreusuario', {headers: this.agregarAutorizacionHeader(),params: params}).subscribe(
-  
-      data  => {
-       
-     this.dataNueva=data;
-     this.relevamiento.idUser = parseInt(this.dataNueva.id)
-      console.log("lalalala ",this.dataNueva);
-      
+    return this.http.get(this.serverUrl.serverUrl + '/api/usuarios/nombreusuario', { headers: this.agregarAutorizacionHeader(), params: params }).subscribe(
+
+      data => {
+
+        this.dataNueva = data;
+        this.relevamiento.idUser = parseInt(this.dataNueva.id)
+
       });
-      
+
   }
 
 }

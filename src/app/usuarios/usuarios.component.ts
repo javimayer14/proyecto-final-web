@@ -17,7 +17,9 @@ export class UsuariosComponent implements OnInit {
   data: any = [];
   usuarioObtenido: any = null;
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-  constructor(public router: Router, private http: HttpClient, private authService: AuthService, private relevamiento: RelevamientoInicialService, private serverUrl: ServerUrlService) { }
+  constructor(public router: Router, private http: HttpClient, private authService: AuthService, private relevamiento: RelevamientoInicialService, private serverUrl: ServerUrlService) {
+    this.traerUsuarios();
+   }
 
   public traerUsuarios() {
 
@@ -27,17 +29,12 @@ export class UsuariosComponent implements OnInit {
         this.datosBusqueda = data;
         this.data = data;
 
-
-        console.log("PUT Request is successful ", this.datosBusqueda);
-
       });
 
   }
   public traerUsuarioPorId(id) {
-    console.log(id);
 
     let params = new HttpParams().set("id", id) //Create new HttpParams
-    console.log("ESTOS SON LOS PARAMETROS " + params);
     return this.http.get(`${this.serverUrl.serverUrl + '/api/usuarios'}/${id}`, { headers: this.agregarAutorizacionHeader() }).subscribe(
 
       data => {
@@ -57,23 +54,27 @@ export class UsuariosComponent implements OnInit {
       confirmButtonText: 'Si, eliminar!'
     }).then((result) => {
       if (result.value) {
-        console.log(id);
-
         let params = new HttpParams().set("id", id) //Create new HttpParams
-        console.log("ESTOS SON LOS PARAMETROS " + params);
         return this.http.delete(`${this.serverUrl.serverUrl + '/api/usuarios'}/${id}`, { headers: this.agregarAutorizacionHeader(), params: params }).subscribe(
 
           data => {
 
             swal.fire('Usuarios', '¡el usuario fue eliminado con éxito!', "success");
-
-            console.log("Delete Request is successful ");
             this.traerUsuarios();
             swal.fire(
               'Eliminado',
               '¡se eliminó el usuario con éxito!',
               'success'
             )
+          }, err => {
+            if (err.status == 401) {
+              swal.fire('Usuarios', 'Su sessión ha expirado', "error");
+              this.authService.logOut();
+              this.router.navigate(['/login']);
+            }
+            else if (err) {
+              swal.fire('Usuarios', 'no se pudo cargar el registro', "error");
+            }
           });
 
       }

@@ -41,7 +41,15 @@ export class HistorialComponent implements OnInit {
         headers: this.agregarAutorizacionHeader()
       })
       .subscribe(data => {
-        console.log("PUT Request is successful ", data);
+      }, err => {
+        if (err.status == 401) {
+          swal.fire('Historial', 'Su sessión ha expirado', "error");
+          this.authService.logOut();
+          this.router.navigate(['/login']);
+        }
+        else if (err) {
+          swal.fire('Historial', 'no se pudo cargar el registro', "error");
+        }
       });
   }
 
@@ -69,7 +77,6 @@ export class HistorialComponent implements OnInit {
           .set("idUsuario", idUsuario)
           .set("fecha", fecha)
           .set("desc", desc); //Create new HttpParams
-        console.log("ESTOS SON LOS PARAMETROS " + params);
 
         return this.http
           .get(this.urlServer.serverUrl + "/api/usuarios/historial/delete", {
@@ -77,7 +84,6 @@ export class HistorialComponent implements OnInit {
             params: params
           })
           .subscribe(data => {
-            console.log("PUT Request is successful ", data);
 
             this.buscarHistorial();
             swal.fire(
@@ -85,8 +91,17 @@ export class HistorialComponent implements OnInit {
               '¡se eliminó el registro con éxito!',
               'success'
             )
+          }, err => {
+            if (err.status == 401) {
+              swal.fire('Historial', 'Su sessión ha expirado', "error");
+              this.authService.logOut();
+              this.router.navigate(['/login']);
+            }
+            else if (err) {
+              swal.fire('Historial', 'no se pudo cargar el registro', "error");
+            }
           });
-     
+
       }
     })
 
@@ -106,7 +121,6 @@ export class HistorialComponent implements OnInit {
       return;
     } else {
       let params = new HttpParams().set("nombreUsuario", this.buscar); //Create new HttpParams
-      console.log("ESTOS SON LOS PARAMETROS " + params);
 
       return this.http
         .get(this.urlServer.serverUrl + "/api/usuarios/historial", {
@@ -116,7 +130,15 @@ export class HistorialComponent implements OnInit {
         .subscribe(data => {
           this.datosBusqueda = data;
           this.dataExel = data;
-          console.log("PUT Request is successful ", this.datosBusqueda);
+        }, err => {
+          if (err.status == 401) {
+            swal.fire('Historial', 'Su sessión ha expirado', "error");
+            this.authService.logOut();
+            this.router.navigate(['/login']);
+          }
+          else if (err) {
+            swal.fire('Historial', 'no se pudo cargar el registro', "error");
+          }
         });
     }
   }
@@ -125,8 +147,6 @@ export class HistorialComponent implements OnInit {
     let dataJson: any[] = [];
 
     for (var x in this.dataExel) {
-      console.log("ACA ARRANCA");
-      console.log(this.dataExel[x]);
       dataJson.push({
         Tipo_registro: this.dataExel[x][0],
         Motivo: this.dataExel[x][1],
@@ -143,7 +163,6 @@ export class HistorialComponent implements OnInit {
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
-    console.log("worksheet", worksheet);
     const workbook: XLSX.WorkBook = {
       Sheets: { data: worksheet },
       SheetNames: ["data"]

@@ -6,14 +6,8 @@
     <div class="col-md-12">
       <div class="form-group">
         <label>Buscar:</label>
-        <input
-          [(ngModel)]="buscar"
-          name="buscar"
-          (keyup.enter)="buscarHistorial()"
-          type="text"
-          class="form-control"
-          placeholder="Buscar historial del delegado"
-        />
+        <input [(ngModel)]="buscar" name="buscar" (keyup.enter)="buscarHistorial()" type="text" class="form-control"
+          placeholder="Buscar historial del delegado" />
       </div>
     </div>
   </div>
@@ -24,11 +18,7 @@
   <hr />
   <div class="col-md-4" *ngFor="let reg of datosBusqueda">
     <div *ngIf="reg[0] == 'CONF'">
-      <img
-        src="../../assets/img/conflicto.png"
-        class="card-img-top img-fluid"
-        alt="..."
-      />
+      <img src="../../assets/img/conflicto.png" class="card-img-top img-fluid" alt="..." />
       <div class="card-body">
         <h5 class="card-title">Conflicto laboral</h5>
         <hr />
@@ -36,19 +26,17 @@
         <p class="card-text">Motivo: {{ reg[1] }}</p>
         <p class="card-text">Medida: {{ reg[8] }}</p>
       </div>
-      <button type="button" (click)="eliminarRegistro('CONF',reg[7],reg[9],reg[6])" class="btn btn-danger">Eliminar</button>
-
+      <button type="button" (click)="eliminarRegistro('CONF',reg[7],reg[9],reg[6])"
+        class="btn btn-danger">Eliminar</button>
+      <br>
+      <br>
       <div class="card-footer">
         <small class="text-muted">Fecha de suceso: {{ reg[9] }}</small>
       </div>
     </div>
 
     <div *ngIf="reg[0] == 'VAR'">
-      <img
-        src="../../assets/img/cambios.png"
-        class="card-img-top img-fluid"
-        alt="..."
-      />
+      <img src="../../assets/img/cambios.png" class="card-img-top img-fluid" alt="..." />
       <div class="card-body">
         <h5 class="card-title">Variacion laboral</h5>
         <p class="card-text">{{ reg[6] }}</p>
@@ -58,25 +46,23 @@
         <p class="card-text">{{ reg[4] }}</p>
         <p class="card-text">Tipo de variacion: {{ reg[5] }}</p>
       </div>
-      <button type="button" (click)="eliminarRegistro('VAR',reg[7],reg[9],reg[6])" class="btn btn-danger">Eliminar</button>
+      <button type="button" (click)="eliminarRegistro('VAR',reg[7],reg[9],reg[6])"
+        class="btn btn-danger">Eliminar</button>
       <div class="card-footer">
         <small class="text-muted">Fecha de suceso: {{ reg[9] }}</small>
       </div>
     </div>
 
     <div *ngIf="reg[0] == 'CAMB'">
-      <img
-        src="../../assets/img/variaciones.png"
-        class="card-img-top img-fluid"
-        alt="..."
-      />
+      <img src="../../assets/img/variaciones.png" class="card-img-top img-fluid" alt="..." />
       <div class="card-body">
         <h5 class="card-title">Cambio laboral</h5>
         <hr />
         <p class="card-text">{{ reg[6] }}</p>
         <p class="card-text">Motivo: {{ reg[1] }}</p>
       </div>
-      <button type="button" (click)="eliminarRegistro('CAMB',reg[7],reg[9],reg[6])" class="btn btn-danger">Eliminar</button>
+      <button type="button" (click)="eliminarRegistro('CAMB',reg[7],reg[9],reg[6])"
+        class="btn btn-danger">Eliminar</button>
 
       <div class="card-footer">
         <small class="text-muted">Fecha de suceso: {{ reg[9] }}</small>

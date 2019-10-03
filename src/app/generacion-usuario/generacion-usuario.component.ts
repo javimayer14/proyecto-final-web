@@ -23,7 +23,7 @@ export class GeneracionUsuarioComponent implements OnInit {
   role = '1';
   tipoUsuario = '';
 
-  constructor(private router: Router, public http: HttpClient, public authService: AuthService,private relevamiento:RelevamientoInicialService, private serverUrl:ServerUrlService) { }
+  constructor(private router: Router, public http: HttpClient, public authService: AuthService, private relevamiento: RelevamientoInicialService, private serverUrl: ServerUrlService) { }
 
   private agregarAutorizacionHeader() {
     let token = this.authService.token;
@@ -79,7 +79,7 @@ export class GeneracionUsuarioComponent implements OnInit {
   }
   public saveDataUsuario(form) {
 
-    var url = this.serverUrl.serverUrl +"/api/usuarios"
+    var url = this.serverUrl.serverUrl + "/api/usuarios"
     let postData = new FormData();
     this.generacionUsuarioForm.username = form.value.usuario;
     this.generacionUsuarioForm.password = form.value.contrasenia;
@@ -123,18 +123,14 @@ export class GeneracionUsuarioComponent implements OnInit {
       this.tipoUsuario = '2';
     } else if (this.role == 'Delegado') {
       this.tipoUsuario = '1';
-      this.relevamiento.flag = 0;
+      this.relevamiento.flag = 0; 
 
     }
     let params = new HttpParams().set("role", this.tipoUsuario);
     this.data = this.http.post(url, this.generacionUsuarioForm, { headers: this.agregarAutorizacionHeader(), params: params });
-    console.log(this.generacionUsuarioForm);
     this.data.subscribe(data => {
-      console.log("esto devuelve al crear usuario" + data);
 
       swal.fire('Generacion usuario', 'el usuario fue creado con exito', "success");
-    });
-    console.log("holass");
 
     if (this.tipoUsuario == '1') {
       this.relevamiento.nombreUsuario = this.generacionUsuarioForm.nombreUsuario;
@@ -144,9 +140,18 @@ export class GeneracionUsuarioComponent implements OnInit {
 
       this.router.navigate(['/usuarios']);
 
-     
+   }
+    }, err => {
+      if (err.status == 401) {
+        swal.fire('Generacion usuario', 'Su sessión ha expirado', "error");
+        this.authService.logOut();
+        this.router.navigate(['/login']);
+      }
+      else if (err) {
+        swal.fire('Generacion usuario', 'no se pudo cargar el registro', "error");
+      }
+    });
 
-    }
 
   }
 
