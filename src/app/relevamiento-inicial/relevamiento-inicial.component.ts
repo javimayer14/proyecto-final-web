@@ -27,6 +27,7 @@ export class RelevamientoInicialComponent implements OnInit {
   idUser: any;
   dataNueva: any = {};
   idFinal: number;
+  flag:number = 0;
 
   private httpHeaders = new HttpHeaders({ "Content-Type": "application/json" });
 
@@ -138,6 +139,8 @@ export class RelevamientoInicialComponent implements OnInit {
   }
 
   obtenerId() {
+    this.flag= 1;
+
     let params = new HttpParams().set("nombreUsuario", this.relevamiento.nombreUsuario);
     return this.http.get(this.serverUrl.serverUrl + '/api/usuarios/nombreusuario', { headers: this.agregarAutorizacionHeader(), params: params }).subscribe(
 
@@ -145,9 +148,9 @@ export class RelevamientoInicialComponent implements OnInit {
 
         this.dataNueva = data;
         this.relevamiento.idUser = parseInt(this.dataNueva.id)
-
+        this.flag= 0;
       });
 
   }
 
-}
+} 

@@ -157,6 +157,9 @@
           </table>
         </div>
       </div>
+      <div *ngIf ="this.flag == 1" class="spinner-border text-info" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text">Observaciones (obligatorio)</span>
