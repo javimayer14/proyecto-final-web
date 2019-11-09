@@ -16,6 +16,7 @@ import { LoginComponent } from './login/login.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { HistorialComponent } from './historial/historial.component';
 import { RelevamientoInicialService } from './services/relevamiento-inicial.service';
+import { ContactoComponent } from './contacto/contacto.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { RelevamientoInicialService } from './services/relevamiento-inicial.serv
     GenerarExelComponent,
     LoginComponent,
     UsuariosComponent,
-    HistorialComponent
+    HistorialComponent,
+    ContactoComponent
     
   ],
   imports: [

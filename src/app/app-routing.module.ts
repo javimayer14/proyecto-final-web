@@ -8,7 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { AuthGuard } from './usuarios/guards/auth.guard';
 import { HistorialComponent } from './historial/historial.component';
-
+import { ContactoComponent } from './contacto/contacto.component';
 const routes: Routes = [
   {
   path: 'inicio',
@@ -37,6 +37,10 @@ const routes: Routes = [
   {
     path: 'historial',
     component: HistorialComponent, canActivate:[AuthGuard]
+  },
+  {
+    path: 'contacto',
+    component: ContactoComponent, canActivate:[AuthGuard]
   }
 ];
 

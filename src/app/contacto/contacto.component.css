@@ -1,0 +1,10 @@
+img{
+    width: 50%;
+    height: 25%;
+}
+.centrar{
+    align-items: center;
+    align-content: center;
+    align-self: center;
+
+}
