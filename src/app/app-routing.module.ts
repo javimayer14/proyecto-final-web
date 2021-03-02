@@ -9,6 +9,9 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { AuthGuard } from './usuarios/guards/auth.guard';
 import { HistorialComponent } from './historial/historial.component';
 import { ContactoComponent } from './contacto/contacto.component';
+import { DetalleUsuarioComponent } from './detalle-usuario/detalle-usuario.component';
+import {ProyectoInfoComponent} from '../app/proyecto-info/proyecto-info.component';
+
 const routes: Routes = [
   {
   path: 'inicio',
@@ -21,6 +24,14 @@ const routes: Routes = [
   {
     path: 'relevamientoInicial',
     component: RelevamientoInicialComponent , canActivate:[AuthGuard]
+  },
+  {
+    path: 'detalleUsuario',
+    component: DetalleUsuarioComponent , canActivate:[AuthGuard]
+  },
+  {
+    path: 'proyectoInfo',
+    component: ProyectoInfoComponent , canActivate:[AuthGuard]
   },
   {
     path: 'exelPrueba',

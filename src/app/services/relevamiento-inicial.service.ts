@@ -34,7 +34,10 @@ export class RelevamientoInicialService {
   }
 
 
+  obtenerDetalle(){
+    this.router.navigate(['/relevamientoInicial']);
 
+  }
 
   obtenerRelevamiento(idUsuario) {
     let params = new HttpParams().set("idUser", idUsuario)

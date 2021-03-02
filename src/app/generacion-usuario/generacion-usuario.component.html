@@ -91,8 +91,8 @@
 
         <div class="form-group col-md-6">
           <label for="inputAddress">DNI</label>
-          <input type="text" class="form-control" id="inputAddress"
-            placeholder="DNI (solo números sin puntos ni signos)" name="dni" [(ngModel)]="generacionUsuarioForm.dni">
+          <input  class="form-control" id="inputAddress"
+            placeholder="DNI (solo números sin puntos ni signos)" name="dni" [(ngModel)]="generacionUsuarioForm.dni"  type="number" maxlength = "4">
         </div>
         <div class="form-group col-md-6">
           <label for="inputAddress">Fecha de inicio en el proyecto</label>
@@ -105,13 +105,13 @@
           <label for="inputAddress2">Teléfono</label>
           <input type="text" class="form-control" id="inputAddress2"
             placeholder="Teléfono (solo números sin guiones ni signos)" name="telefono"
-            [(ngModel)]="generacionUsuarioForm.telefono">
+            [(ngModel)]="generacionUsuarioForm.telefono" type="number">
         </div>
         <div class="form-group col-md-4">
           <label for="inputAddress2">Teléfono celular</label>
           <input type="text" class="form-control" id="inputAddress2"
             placeholder="Teléfono celular (solo números sin guiones ni signos)" name="telefonoCelular"
-            [(ngModel)]="generacionUsuarioForm.telefonoCelular">
+            [(ngModel)]="generacionUsuarioForm.telefonoCelular" type="number">
         </div>
         <div class="form-group col-md-4">
           <label for="inputAddress2">E-mail</label>
@@ -126,9 +126,9 @@
             name="sindicatoPerteneciente" [(ngModel)]="generacionUsuarioForm.sindicatoPerteneciente">
         </div>
         <div class="form-group col-md-6">
-          <label for="inputAddress2">años de antiguedad</label>
+          <label for="inputAddress2">años de antigüedad</label>
           <input type="text" class="form-control" id="inputAddress2" placeholder="años de antiguedad" name="antiguedad"
-            [(ngModel)]="generacionUsuarioForm.antiguedad">
+            [(ngModel)]="generacionUsuarioForm.antiguedad" type="number"  >
         </div>
 
       </div>
@@ -145,7 +145,7 @@
         <div class="form-group col-md-6">
           <label for="inputPassword4">CUIT</label>
           <input type="text" class="form-control" id="inputPassword" placeholder="CUIT" name="cuit"
-            [(ngModel)]="generacionUsuarioForm.cuit">
+            [(ngModel)]="generacionUsuarioForm.cuit" type="number" >
         </div>
       </div>
       <div class="form-group">

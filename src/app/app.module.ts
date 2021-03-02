@@ -17,6 +17,8 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { HistorialComponent } from './historial/historial.component';
 import { RelevamientoInicialService } from './services/relevamiento-inicial.service';
 import { ContactoComponent } from './contacto/contacto.component';
+import { DetalleUsuarioComponent } from './detalle-usuario/detalle-usuario.component';
+import { ProyectoInfoComponent } from './proyecto-info/proyecto-info.component';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { ContactoComponent } from './contacto/contacto.component';
     LoginComponent,
     UsuariosComponent,
     HistorialComponent,
-    ContactoComponent
+    ContactoComponent,
+    DetalleUsuarioComponent,
+    ProyectoInfoComponent
     
   ],
   imports: [
