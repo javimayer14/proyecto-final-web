@@ -22,6 +22,7 @@ export class GeneracionUsuarioComponent implements OnInit {
   repiteContrasenia = '';
   role = '1';
   tipoUsuario = '';
+  dataNueva: any = {};
 
   constructor(private router: Router, public http: HttpClient, public authService: AuthService, private relevamiento: RelevamientoInicialService, private serverUrl: ServerUrlService) { }
 
@@ -78,7 +79,7 @@ export class GeneracionUsuarioComponent implements OnInit {
 
   }
   public saveDataUsuario(form) {
-
+ 
     var url = this.serverUrl.serverUrl + "/api/usuarios"
     let postData = new FormData();
     this.generacionUsuarioForm.username = form.value.usuario;
@@ -134,10 +135,12 @@ export class GeneracionUsuarioComponent implements OnInit {
 
     if (this.tipoUsuario == '1') {
       this.relevamiento.nombreUsuario = this.generacionUsuarioForm.nombreUsuario;
+      this.generacionUsuarioForm.nombreUsuario
+      console.log("imprimo data", this.data);
+      this.obtenerId();
       this.router.navigate(['/relevamientoInicial']);
     }
     else if (this.tipoUsuario == '2') {
-
       this.router.navigate(['/usuarios']);
 
    }
@@ -152,6 +155,20 @@ export class GeneracionUsuarioComponent implements OnInit {
       }
     });
 
+
+  }
+
+  obtenerId() {
+
+    let params = new HttpParams().set("nombreUsuario", this.generacionUsuarioForm.nombreUsuario);
+    return this.http.get(this.serverUrl.serverUrl + '/api/usuarios/nombreusuario', { headers: this.agregarAutorizacionHeader(), params: params }).subscribe(
+
+      data => {
+        this.dataNueva = data;
+        this.serverUrl.idUsuarioGenerado = parseInt(this.dataNueva.id);
+        this.relevamiento.nombreUsuario = this.dataNueva.nombreUsuario;
+        console.log("busqueda usuario por id", this.dataNueva);
+      });
 
   }
 

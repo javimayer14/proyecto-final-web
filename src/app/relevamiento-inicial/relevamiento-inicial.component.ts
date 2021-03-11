@@ -103,12 +103,11 @@ export class RelevamientoInicialComponent implements OnInit {
 
 
   saveData(form) {
-    this.obtenerId();
 
     let usuario = this.authService.usuario;
     this.agregarTrabajador();
     this.relevamientoForm.descripcion = form.value.descripcion;
-    this.relevamientoForm.id_delegado = this.relevamiento.idUser;
+    this.relevamientoForm.id_delegado = this.serverUrl.idUsuarioGenerado;
 
     var url = this.serverUrl.serverUrl + "/api/relevamientoInicial";
     this.sumaTrabajadores(this.relevamientoForm);

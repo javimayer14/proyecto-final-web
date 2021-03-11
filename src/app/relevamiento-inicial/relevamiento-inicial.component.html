@@ -164,7 +164,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text">Observaciones (obligatorio)</span>
         </div>
-        <textarea name="descripcion" (focus)="obtenerId()" class="form-control" aria-label="With textarea"
+        <textarea name="descripcion" class="form-control" aria-label="With textarea"
           [(ngModel)]="relevamientoForm.descripcion" #desc="ngModel" required></textarea>
         <div class="alert alert-danger" *ngIf="desc.invalid && (desc.dirty || desc.touched)">
           <div *ngIf="desc.errors.required">

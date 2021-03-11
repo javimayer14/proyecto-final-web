@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 export class ServerUrlService {
   serverUrl: string;
   usuarioObtenido: any = null;
+  idUsuarioGenerado:any = null;
 
   constructor() {
     this.serverUrl = "http://localhost:8080";
