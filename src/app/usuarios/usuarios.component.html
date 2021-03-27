@@ -14,6 +14,7 @@
                 <th scope="col">Nombre Usuario</th>
                 <th scope="col">Relevamiento inicial</th>
                 <th scope="col">Datos del usuario</th>
+                <th scope="col">Editar</th>
                 <th scope="col">Eliminar</th>
 
               </tr>
@@ -29,6 +30,8 @@
                     class="btn btn-secondary btn-lg">Relevamiento inicial</button>
                 <td> <button (click)="traerUsuarioPorId(d.id)" type="button" class="btn btn-secondary btn-lg"
                     >detalle</button></td>
+                    <td> <button (click)="editar(d.id)" type="button" class="btn btn-secondary btn-lg"
+                      >editar</button></td>
                 <td> <button (click)="eliminarUsuario(d.id)" type="button"
                     class="btn btn-danger btn-lg">eliminar</button>
                 </td>

@@ -1,6 +1,14 @@
 <div class="container fadeIn first">
   <h2>Datos del usuario:</h2>
   <form #form="ngForm" (ngSubmit)="saveDataUsuario(form)" novalidate>
+    <div class="form-group">
+      <label for="exampleFormControlSelect1">Tipo de usuario a crear</label>
+      <select class="form-control" name="role" [(ngModel)]="role" #tipoUser="ngModel" (change)="capturar()">
+        <option>Usuario administrador</option>
+        <option>Delegado</option>
+
+      </select>
+    </div>
     <div class="form-row">
       <div class="form-group col-md-12">
         <label for="inputEmail4">Usuario</label>
@@ -76,14 +84,7 @@
 
     </div>
 
-    <div class="form-group">
-      <label for="exampleFormControlSelect1">Tipo de usuario a crear</label>
-      <select class="form-control" name="role" [(ngModel)]="role" #tipoUser="ngModel" (change)="capturar()">
-        <option>Usuario administrador</option>
-        <option>Delegado</option>
 
-      </select>
-    </div>
     <div *ngIf="role == 'Delegado' ">
 
 
@@ -91,13 +92,16 @@
 
         <div class="form-group col-md-6">
           <label for="inputAddress">DNI</label>
-          <input  class="form-control" id="inputAddress"
-            placeholder="DNI (solo números sin puntos ni signos)" name="dni" [(ngModel)]="generacionUsuarioForm.dni"  type="number" maxlength = "4">
+          <input  class="form-control" id="inputAddress" (input)="_keyUp($event)" 
+            placeholder="DNI (solo números sin puntos ni signos)" name="dni" [(ngModel)]="generacionUsuarioForm.dni"  
+            type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" >
         </div>
         <div class="form-group col-md-6">
-          <label for="inputAddress">Fecha de inicio en el proyecto</label>
-          <input type="text" class="form-control" id="inputAddress" placeholder="Fecha de inicio en el proyecto"
-            name="fechaInicioEnProyecto" [(ngModel)]="generacionUsuarioForm.fechaInicioEnProyecto">
+          <label for="inputState">Fecha de inicio en el proyecto</label>
+          <ejs-datepicker id='datepicker' placeholder='Seleccionar fecha' 
+          name="fechaInicioEnProyecto" [(ngModel)]="generacionUsuarioForm.fechaInicioEnProyecto">
+        </ejs-datepicker>
+    
         </div>
       </div>
       <div class="form-row">
@@ -105,13 +109,13 @@
           <label for="inputAddress2">Teléfono</label>
           <input type="text" class="form-control" id="inputAddress2"
             placeholder="Teléfono (solo números sin guiones ni signos)" name="telefono"
-            [(ngModel)]="generacionUsuarioForm.telefono" type="number">
+            [(ngModel)]="generacionUsuarioForm.telefono"  type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
         </div>
         <div class="form-group col-md-4">
           <label for="inputAddress2">Teléfono celular</label>
           <input type="text" class="form-control" id="inputAddress2"
             placeholder="Teléfono celular (solo números sin guiones ni signos)" name="telefonoCelular"
-            [(ngModel)]="generacionUsuarioForm.telefonoCelular" type="number">
+            [(ngModel)]="generacionUsuarioForm.telefonoCelular" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
         </div>
         <div class="form-group col-md-4">
           <label for="inputAddress2">E-mail</label>
@@ -128,7 +132,7 @@
         <div class="form-group col-md-6">
           <label for="inputAddress2">años de antigüedad</label>
           <input type="text" class="form-control" id="inputAddress2" placeholder="años de antiguedad" name="antiguedad"
-            [(ngModel)]="generacionUsuarioForm.antiguedad" type="number"  >
+            [(ngModel)]="generacionUsuarioForm.antiguedad"  type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"  >
         </div>
 
       </div>
@@ -145,7 +149,7 @@
         <div class="form-group col-md-6">
           <label for="inputPassword4">CUIT</label>
           <input type="text" class="form-control" id="inputPassword" placeholder="CUIT" name="cuit"
-            [(ngModel)]="generacionUsuarioForm.cuit" type="number" >
+            [(ngModel)]="generacionUsuarioForm.cuit"  type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" >
         </div>
       </div>
       <div class="form-group">
@@ -153,20 +157,7 @@
         <input type="text" class="form-control" id="inputAddress" placeholder="Actividad principal" name="actividad"
           [(ngModel)]="generacionUsuarioForm.actividad">
       </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked
-          name="check" [(ngModel)]="generacionUsuarioForm.check">
-        <label class="form-check-label" for="exampleRadios1">
-          Default radio
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2"
-          name="check" [(ngModel)]="generacionUsuarioForm.check">
-        <label class="form-check-label" for="exampleRadios2">
-          Second default radio
-        </label>
-      </div>
+
       <div class="form-row">
         <div class="form-group col-md-4">
           <label for="inputAddress">Dirección</label>
@@ -260,6 +251,9 @@
 
     </div>
 
+
     <button type="submit" class="btn btn-primary fadeIn second" [disabled]="!form.form.valid">Confirmar</button>
   </form>
+  <link href="https://cdn.syncfusion.com/ej2/material.css" rel="stylesheet" />
+
 </div>

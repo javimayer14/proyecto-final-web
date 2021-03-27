@@ -1,21 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
+
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { InicioComponent } from '../inicio/inicio.component'
-import { AuthService } from '../services/usuarios/auth.service';
+import { InicioComponent } from '../../inicio/inicio.component'
+import { AuthService } from '../../services/usuarios/auth.service';
 import swal from 'sweetalert2';
 import { JsonAdaptor } from '@syncfusion/ej2-data';
-import { RelevamientoInicialService } from '../services/relevamiento-inicial.service';
-import { ServerUrlService } from '../services/server-url.service';
-
+import { RelevamientoInicialService } from '../../services/relevamiento-inicial.service';
+import { ServerUrlService } from '../../services/server-url.service'
 
 @Component({
-  selector: 'app-generacion-usuario',
-  templateUrl: './generacion-usuario.component.html',
-  styleUrls: ['./generacion-usuario.component.css']
+  selector: 'app-update-usuario',
+  templateUrl: './update-usuario.component.html',
+  styleUrls: ['./update-usuario.component.css']
 })
-export class GeneracionUsuarioComponent implements OnInit {
+export class UpdateUsuarioComponent implements OnInit {
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
   data: Observable<any>;
   tipoUsuarioSelect = '';
@@ -24,7 +25,7 @@ export class GeneracionUsuarioComponent implements OnInit {
   tipoUsuario = '';
   dataNueva: any = {};
 
-  constructor(private router: Router, public http: HttpClient, public authService: AuthService, private relevamiento: RelevamientoInicialService, private serverUrl: ServerUrlService) { }
+  constructor(public datepi: DatePickerModule,private router: Router, public http: HttpClient, public authService: AuthService, private relevamiento: RelevamientoInicialService, private serverUrl: ServerUrlService) { }
 
   private agregarAutorizacionHeader() {
     let token = this.authService.token;
@@ -36,6 +37,8 @@ export class GeneracionUsuarioComponent implements OnInit {
 
   ngOnInit() {
     data: history.state.data
+    this.generacionUsuarioForm = this.serverUrl.usuarioObtenido;
+    console.log("asd", this.generacionUsuarioForm);
   }
 
   generacionUsuarioForm = {
@@ -78,7 +81,7 @@ export class GeneracionUsuarioComponent implements OnInit {
     role: null
 
   }
-  public saveDataUsuario(form) {
+  public editarDataUsuario(form) {
  
     var url = this.serverUrl.serverUrl + "/api/usuarios"
     let postData = new FormData();
@@ -127,34 +130,30 @@ export class GeneracionUsuarioComponent implements OnInit {
       this.relevamiento.flag = 0; 
 
     }
-    let params = new HttpParams().set("role", this.tipoUsuario);
-    this.data = this.http.post(url, this.generacionUsuarioForm, { headers: this.agregarAutorizacionHeader(), params: params });
-    this.data.subscribe(async data => {
+     this.http
+    .put(`${this.serverUrl.serverUrl + "/api/usuarios"}/${this.serverUrl.usuarioObtenido.id}`,  this.generacionUsuarioForm, {
+      headers: this.agregarAutorizacionHeader(),
+    })
+    .subscribe(data => {
 
-      swal.fire('Generacion usuario', 'el usuario fue creado con exito', "success");
+      swal.fire('Editar usuario', 'el usuario fue actualizado con exito', "success");
+      console.log("FORMMM", this.generacionUsuarioForm)
 
-    if (this.tipoUsuario == '1') {
       this.relevamiento.nombreUsuario = this.generacionUsuarioForm.nombreUsuario;
       this.generacionUsuarioForm.nombreUsuario
       console.log("imprimo data", this.data);
-      await this.obtenerId();
-      this.router.navigate(['/relevamientoInicial']);
-    }
-    else if (this.tipoUsuario == '2') {
       this.router.navigate(['/usuarios']);
 
-   }
     }, err => {
       if (err.status == 401) {
-        swal.fire('Generacion usuario', 'Su sessión ha expirado', "error");
+        swal.fire('Editar usuario', 'Su sessión ha expirado', "error");
         this.authService.logOut();
         this.router.navigate(['/login']);
       }
       else if (err) {
-        swal.fire('Generacion usuario', 'no se pudo cargar el registro', "error");
+        swal.fire('Editar usuario', 'no se pudo editar el registro', "error");
       }
     });
-
 
   }
 
@@ -175,31 +174,5 @@ export class GeneracionUsuarioComponent implements OnInit {
   public capturar() {
     //this.tipoUsuarioSelect = this.generacionUsuarioForm.role;
   }
-
-  _keyUp(event: any) {
-    console.log("EVENT")
-    const pattern = /[0-9\+\-\ ]/;
-    let inputChar = String.fromCharCode(event.key);
-
-    if (!pattern.test(inputChar)) {
-      // invalid character, prevent input
-      console.log("EVENT WRONG")
-
-      event.preventDefault();
-    }
-}
-
-
-public inputValidator(event: any) {
-  //console.log(event.target.value);
-  const pattern = /^[a-zA-Z0-9]*$/;   
-  //let inputChar = String.fromCharCode(event.charCode)
-  if (!pattern.test(event.target.value)) {
-    event.target.value = event.target.value.replace(/[^a-zA-Z0-9]/g, "");
-    // invalid character, prevent input
-
-  }
-}
-
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs";
 import { AuthService } from "../services/usuarios/auth.service";
 import swal from "sweetalert2";
@@ -11,15 +11,12 @@ import { filter, pairwise } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { ServerUrlService } from '../services/server-url.service';
 
-
-
 @Component({
-  selector: "app-relevamiento-inicial",
-  templateUrl: "./relevamiento-inicial.component.html",
-  styleUrls: ["./relevamiento-inicial.component.css"],
-
+  selector: 'app-relevamiento-inicial-ed',
+  templateUrl: './relevamiento-inicial-ed.component.html',
+  styleUrls: ['./relevamiento-inicial-ed.component.css']
 })
-export class RelevamientoInicialComponent implements OnInit {
+export class RelevamientoInicialEdComponent implements OnInit {
   trabajadores: any[] = [];
   data: Observable<any>;
   relevamientoForm: any = {}
@@ -42,32 +39,7 @@ export class RelevamientoInicialComponent implements OnInit {
   ) {
 
 
-    this.relevamientoForm = {
-      id_delegado: 0,
-      cant_directos: 0,
-      cant_directos_uom: 0,
-      cant_subcontratados: 0,
-      cant_subcontratados_uom: 0,
-      cant_pasantias_becas: 0,
-      cant_pasantias_becas_uom: 0,
-      cant_monotributistas: 0,
-      cant_monotributistas_uom: 0,
-      cant_subvencionados: 0,
-      cant_subvencionados_uom: 0,
-      cant_contratos_temporarios: 0,
-      cant_contratos_temporarios_uom: 0,
-      cant_terciarizados: 0,
-      cant_terciarizados_uom: 0,
-      cant_agencia: 0,
-      cant_agencia_uom: 0,
-      cant_personas_discapacidad: 0,
-      cant_personas_discapacidad_uom: 0,
-      cant_no_registrados: 0,
-      cant_no_registrados_uom: 0,
-      cant_total: 0,
-      cant_total_uom: 0,
-      descripcion: ""
-    };
+    this.relevamientoForm = this.relevamiento.data
   }
   public agregarTrabajador() {
     this.trabajadores.push(1);
@@ -108,7 +80,7 @@ export class RelevamientoInicialComponent implements OnInit {
   }
 
 
-  saveData(form) {
+  editData(form) {
 
     let usuario = this.authService.usuario;
     // this.agregarTrabajador();
@@ -118,19 +90,19 @@ export class RelevamientoInicialComponent implements OnInit {
     let total_trabajadores_uom = this.sumaTrabajadoresUOM(this.relevamientoForm);
     this.relevamientoForm.cant_total = total_trabajadores;
     this.relevamientoForm.cant_total_uom = total_trabajadores_uom;
-    var url = this.serverUrl.serverUrl + "/api/relevamientoInicial";
-    this.sumaTrabajadores(this.relevamientoForm);
-    this.data = this.http.post(url, this.relevamientoForm, {
-      headers: this.agregarAutorizacionHeader()
+    var url = this.serverUrl.serverUrl + this.serverUrl.serverUrl + "/api/relevamientoInicial/user/5";
+    console.log("dddd", this.serverUrl.usuarioObtenido);
+    this.data = this.http.put(url, this.relevamientoForm, { headers: this.agregarAutorizacionHeader()});
+    this.data.subscribe(async data => {
+      console.log("dataEditar", data);
     });
+    
 
-    this.data.subscribe(data => {
-      swal.fire(
-        "Relevamiento inicial",
-        "¡El relevamiento fue cargado con éxito!",
-        "success"
-      );
-    });
+
+
+
+    this.sumaTrabajadores(this.relevamientoForm);
+  
     this.router.navigate(["/usuarios"]);
 
   }
@@ -140,7 +112,8 @@ export class RelevamientoInicialComponent implements OnInit {
   }
 
   ngOnInit() {
-
+      this.relevamientoForm =this.relevamiento.data;
+      console.log("relevamiento-editar", this.relevamientoForm )
   }
 
   private agregarAutorizacionHeader() {

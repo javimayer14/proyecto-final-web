@@ -11,6 +11,8 @@ import { HistorialComponent } from './historial/historial.component';
 import { ContactoComponent } from './contacto/contacto.component';
 import { DetalleUsuarioComponent } from './detalle-usuario/detalle-usuario.component';
 import {ProyectoInfoComponent} from '../app/proyecto-info/proyecto-info.component';
+import { UpdateUsuarioComponent } from './usuarios/update-usuario/update-usuario.component';
+import { RelevamientoInicialEdComponent } from './relevamiento-inicial-ed/relevamiento-inicial-ed.component';
 
 const routes: Routes = [
   {
@@ -22,8 +24,16 @@ const routes: Routes = [
     component: GeneracionUsuarioComponent , canActivate:[AuthGuard]
   },
   {
+    path: 'updateUsuario',
+    component: UpdateUsuarioComponent , canActivate:[AuthGuard]
+  },
+  {
     path: 'relevamientoInicial',
     component: RelevamientoInicialComponent , canActivate:[AuthGuard]
+  },
+  {
+    path: 'relevamientoInicialEdit',
+    component: RelevamientoInicialEdComponent , canActivate:[AuthGuard]
   },
   {
     path: 'detalleUsuario',

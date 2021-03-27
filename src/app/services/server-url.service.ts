@@ -8,6 +8,7 @@ export class ServerUrlService {
   serverUrl: string;
   usuarioObtenido: any = null;
   idUsuarioGenerado:any = null;
+  userType:any=null;
 
   constructor() {
     this.serverUrl = "http://localhost:8080";

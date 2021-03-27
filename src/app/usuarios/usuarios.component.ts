@@ -48,6 +48,31 @@ export class UsuariosComponent implements OnInit {
       });
 
   }
+
+  public editar (id){
+
+    let params = new HttpParams().set("id", id); //Create new HttpParams
+    this.http
+      .get(`${this.serverUrl.serverUrl + "/api/usuarios"}/${id}`, {
+        headers: this.agregarAutorizacionHeader(),
+      })
+      .subscribe((data) => {
+        this.serverUrl.usuarioObtenido = data;
+        this.serverUrl.usuarioObtenido.roles.map((x)=>{
+          if(x.nombre === "ROLE_ADMIN"){
+            this.serverUrl.userType = 'ADMIN';
+          }else{
+            this.serverUrl.userType = 'DELEGADO';
+
+          }
+        });
+        this.router.navigate(['/updateUsuario']);
+
+      });
+
+
+  }
+
   public eliminarUsuario(id) {
     swal
       .fire({

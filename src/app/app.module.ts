@@ -19,6 +19,8 @@ import { RelevamientoInicialService } from './services/relevamiento-inicial.serv
 import { ContactoComponent } from './contacto/contacto.component';
 import { DetalleUsuarioComponent } from './detalle-usuario/detalle-usuario.component';
 import { ProyectoInfoComponent } from './proyecto-info/proyecto-info.component';
+import { UpdateUsuarioComponent } from './usuarios/update-usuario/update-usuario.component';
+import { RelevamientoInicialEdComponent } from './relevamiento-inicial-ed/relevamiento-inicial-ed.component';
 
 
 @NgModule({
@@ -34,8 +36,9 @@ import { ProyectoInfoComponent } from './proyecto-info/proyecto-info.component';
     HistorialComponent,
     ContactoComponent,
     DetalleUsuarioComponent,
-    ProyectoInfoComponent
-    
+    ProyectoInfoComponent,
+    UpdateUsuarioComponent,
+    RelevamientoInicialEdComponent    
   ],
   imports: [
     BrowserModule,

@@ -40,6 +40,8 @@ export class RelevamientoInicialService {
   }
 
   obtenerRelevamiento(idUsuario) {
+    console.log("dataaa",idUsuario);
+
     let params = new HttpParams().set("idUser", idUsuario)
     return this.http
       .get(this.serverUrl.serverUrl + "/api/relevamientoInicialUsuario", {
@@ -47,7 +49,9 @@ export class RelevamientoInicialService {
       })
       .subscribe(data => {
         this.data = data;
-        this.router.navigate(['/relevamientoInicial']);
+
+        console.log("dataaa",data);
+        this.router.navigate(['/relevamientoInicialEdit']);
       });
   }
 }
