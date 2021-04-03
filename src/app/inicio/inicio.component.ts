@@ -182,6 +182,10 @@ export class InicioComponent {
 
 
   }
+public deleteData(){
+  this.data= null;
+  this.datosBusqueda=null;
+}
 
   public buscarConflicto(form) {
     this.validacionParametros(this.buscadorForm);

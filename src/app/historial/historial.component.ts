@@ -130,6 +130,8 @@ export class HistorialComponent implements OnInit {
         .subscribe(data => {
           this.datosBusqueda = data;
           this.dataExel = data;
+          swal.fire('Historial', '¡El historial fue cargado con éxito!', "success");
+
         }, err => {
           if (err.status == 401) {
             swal.fire('Historial', 'Su sessión ha expirado', "error");

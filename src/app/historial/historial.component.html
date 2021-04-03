@@ -16,14 +16,13 @@
   </button>
 
   <hr />
-  <div class="col-md-4" *ngFor="let reg of datosBusqueda">
-    <div *ngIf="reg[0] == 'CONF'">
-      <img src="../../assets/img/conflicto.png" class="card-img-top img-fluid" alt="..." />
+  <div class="col-md-4 elemento"  *ngFor="let reg of datosBusqueda">
+    <div *ngIf="reg[0] == 'CONF'" >
+      <img src="../../assets/img/conflicto.png" class="card-img-top " alt="..." />
       <div class="card-body">
         <h5 class="card-title">Conflicto laboral</h5>
         <hr />
         <p class="card-text">{{ reg[6] }}</p>
-        <p class="card-text">Motivo: {{ reg[1] }}</p>
         <p class="card-text">Medida: {{ reg[8] }}</p>
       </div>
       <button type="button" (click)="eliminarRegistro('CONF',reg[7],reg[9],reg[6])"
@@ -36,7 +35,7 @@
     </div>
 
     <div *ngIf="reg[0] == 'VAR'">
-      <img src="../../assets/img/cambios.png" class="card-img-top img-fluid" alt="..." />
+      <img src="../../assets/img/cambios.png" class="card-img-top " alt="..." />
       <div class="card-body">
         <h5 class="card-title">Variacion laboral</h5>
         <p class="card-text">{{ reg[6] }}</p>
@@ -54,7 +53,7 @@
     </div>
 
     <div *ngIf="reg[0] == 'CAMB'">
-      <img src="../../assets/img/variaciones.png" class="card-img-top img-fluid" alt="..." />
+      <img src="../../assets/img/variaciones.png" class="card-img-top " alt="..." />
       <div class="card-body">
         <h5 class="card-title">Cambio laboral</h5>
         <hr />

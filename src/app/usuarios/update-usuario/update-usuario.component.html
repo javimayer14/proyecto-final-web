@@ -24,9 +24,6 @@
             <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña" name="contrasenia"
               [(ngModel)]="generacionUsuarioForm.contrasenia" required minlength="4" #contrasenia="ngModel">
             <div class="alert alert-danger" *ngIf="contrasenia.invalid && (contrasenia.dirty || contrasenia.touched)">
-              <div *ngIf="contrasenia.errors.required">
-                Contraseña es requerido
-              </div>
               <div *ngIf="contrasenia.errors.minlength">
                 minimo 4 caracteres
               </div>
@@ -133,7 +130,7 @@
     
         <!-- </div> -->
     
-        <button type="submit" class="btn btn-primary fadeIn second" [disabled]="!form.form.valid">Confirmar</button>
+        <button type="submit" class="btn btn-primary fadeIn second" >Confirmar</button>
       </form>
               <link href="https://cdn.syncfusion.com/ej2/material.css" rel="stylesheet" />
 
